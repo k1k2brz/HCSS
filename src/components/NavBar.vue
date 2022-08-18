@@ -10,16 +10,15 @@
       <router-link class="navbar-brand" :to="{ name: 'Home' }"
         ><b>DeCommi</b></router-link
       >
-
       <ul class="navbar-nav">
-        <li class="nav-item active d-flex gap-3 me-4">
-          <router-link class="nav-link" :to="{ name: 'Main' }"
+        <li class="nav-item active d-flex">
+          <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
             >메인페이지(임시)</router-link
           >
-          <router-link class="nav-link" :to="{ name: 'Login' }"
+          <router-link class="nav-link mr-3" :to="{ name: 'Login' }"
             >로그인</router-link
           >
-          <router-link class="nav-link" :to="{ name: 'Signup' }"
+          <router-link class="nav-link mr-3" :to="{ name: 'Signup' }"
             >회원가입</router-link
           >
           <router-link class="nav-link" :to="{ name: 'Todos' }"
@@ -32,11 +31,13 @@
 </template>
 
 <script>
-export default {
-};
+export default {};
 </script>
 
 <style lang="sass" scoped>
+.navbar
+  padding: 0 12px
+
 .navbar-brand
   font-weight: 700
 </style>

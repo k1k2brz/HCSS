@@ -1,6 +1,6 @@
 <template>
   <!-- nav를 따로 뺀다 (가독성)-->
-  <div class="container absolute">
+  <div class="container absolute padding0">
     <div class="relative">
       <Navbar class="fixed-top" />
       <!-- index.js에서 설정한 home component가 여기에 들어온다 -->
@@ -24,6 +24,4 @@ export default {
 };
 </script>
 
-<style lang="sass">
-
-</style>
+<style lang="sass"></style>

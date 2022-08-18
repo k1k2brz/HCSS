@@ -1,18 +1,34 @@
 <template>
-  <div class="container container_default d-flex justify-content-center align-items-center p-0 m-0">
+  <div
+    class="container container_default d-flex justify-content-center align-items-center p-0 m-0"
+  >
     <div class="q-pa-md" style="max-width: 400px">
       <form ref="form" @submit.prevent="onSubmitForm()">
         <div class="mb-3">
-          <input v-model="info.id" type="email" class="form-control" placeholder="Email을 입력해주세요." id="loginEmail"
-            aria-describedby="emailHelp"/>
+          <input
+            v-model="info.id"
+            type="email"
+            class="form-control"
+            placeholder="Email을 입력해주세요."
+            id="loginEmail"
+            aria-describedby="emailHelp"
+          />
           <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
         </div>
         <div class="mb-3">
-          <input v-model="info.pass" type="password" placeholder="비밀번호를 입력해주세요." class="form-control" id="loginPass" />
+          <input
+            v-model="info.pass"
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            class="form-control"
+            id="loginPass"
+          />
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="loginCheck" />
-          <label class="form-check-label me-5" for="loginCheck">아이디 저장</label>
+          <label class="form-check-label me-5" for="loginCheck"
+            >아이디 저장</label
+          >
           <input type="checkbox" class="form-check-input" id="loginCheck2" />
           <label class="form-check-label" for="loginCheck2">자동로그인</label>
         </div>
@@ -58,7 +74,5 @@ export default {
 
 <style lang="sass" scoped>
 .LoginLine
-    height: 1px
     width: 160px
-    background-color: grey
 </style>
