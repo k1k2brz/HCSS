@@ -37,6 +37,7 @@ export default {};
 <style lang="sass" scoped>
 .navbar
   padding: 0 12px
+  background-color: white
 
 .navbar-brand
   font-weight: 700

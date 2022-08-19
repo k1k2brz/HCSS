@@ -7,6 +7,9 @@ import '@/sass/style.sass';
 // Bootstrap importing
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap"
+        //Bootstrap Icon https://icons.getbootstrap.com/
+        import 'bootstrap-icons/font/bootstrap-icons.css'
+
 
 // store를 추가함으로써 vuex state에 접근이 가능해진다.
 createApp(App).use(store).use(router).mount("#app");
