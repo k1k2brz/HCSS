@@ -6,7 +6,7 @@ $darkgrey-color: #6C6C6C
 $red-color: #FF4040
 $blue-color: #346BF9
 $title-text: 32px
-$content-text: 16px
+$content-text: 15px
 $sm-text: 12px
 $title-weight: 700
 
@@ -26,7 +26,7 @@ a,div,button,label,form,nav,p,h1,h2,h3,h4,h5,h6,span,ul,li,b,router-link
   box-sizing: border-box
   margin: 0
   padding: 0
-  font-family: 'SCoreDream'
+  font-family: 'Noto Sans KR', sans-serif
   font-weight: 300
 
 a
@@ -39,13 +39,15 @@ img
   margin: 0
   padding: 0
 
+.bold
+  font-weight: 500
+
 .days
   font-size: 14px
 
 .lastTime
   font-size: 12px
   color: $darkgrey-color
-  margin-left: 5px
 
 .container
   max-width: 1140px !important
@@ -69,6 +71,28 @@ img
   font-weight: 500
   font-size: 14px
 
+.btn-regular-round
+  padding: 7px 12px
+  background-color: $purple-color
+  border: none
+  border-radius: 30px
+  color: white
+  font-weight: 500
+  font-size: 14px
+
+.btn-change
+  padding: 7px 12px
+  background-color: white
+  border: 0.5px solid $stroke-color
+  border-radius: 30px
+  font-weight: 500
+  font-size: 14px
+  &:hover
+    border: none
+    border: 0.5px solid $purple-color
+    background-color: $purple-color
+    color: white
+
 .btn-tag-sm
   padding: 3px 10px
   background-color: $purple-color
@@ -77,6 +101,14 @@ img
   color: white
   font-weight: 300
   font-size: 12px
+
+.text-btn
+  padding: 0
+  color: $purple-color
+  background: none
+  border: none
+  font-weight: 500
+  font-size: 14px
 
 .btn-icon
   border: none
@@ -91,7 +123,14 @@ img
   border: 1px solid grey
   border-radius: 10px
 
+.backgrondBox
+  border: 0.5px solid $stroke-color
+  border-radius: 10px
+
 .tagBox
+  background-color: $lightpurple-color
+
+.purple-box
   background-color: $lightpurple-color
 
 .top-margin
@@ -117,8 +156,11 @@ img
 
 .LoginLine
   height: 1px
-  background-color: #D8D8D8
+  background-color: $stroke-color
 
+.stroke-default
+ height: 0.5px
+ background-color: $stroke-color
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap')
 @import url('https://webfontworld.github.io/SCoreDream/SCoreDream.css')

@@ -12,9 +12,6 @@
       >
       <ul class="navbar-nav">
         <li class="nav-item active d-flex">
-          <router-link class="nav-link mr-3" :to="{ name: 'MyPage' }"
-            >마이페이지</router-link
-          >
           <router-link class="nav-link mr-3" :to="{ name: 'UserEdit' }"
             >회원정보 수정</router-link
           >
@@ -23,12 +20,6 @@
           >
           <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
             >메인페이지</router-link
-          >
-          <router-link class="nav-link mr-3" :to="{ name: 'Login' }"
-            >로그인</router-link
-          >
-          <router-link class="nav-link mr-3" :to="{ name: 'Signup' }"
-            >회원가입</router-link
           >
           <router-link class="nav-link" :to="{ name: 'Todos' }"
             >Todos</router-link

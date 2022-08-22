@@ -15,7 +15,11 @@
         <div class="card mb-4">
           <div class="form-floating">
             <div class="card-body">
-              <textarea class="form-control" placeholder="오늘의 다이어리를 작성해 보세요!" id="floatingTextarea" />
+              <textarea
+                class="form-control"
+                placeholder="오늘의 다이어리를 작성해 보세요!"
+                id="floatingTextarea"
+              />
               <div>
                 <div class="LoginLine mb-2"></div>
               </div>
@@ -36,7 +40,7 @@
             <h5 class="card-title">안녕하세요</h5>
             <div class="small-text mb-4">
               <span class="days">2022.08.01</span>
-              <span class="lastTime">22시간 전</span>
+              <span class="lastTime margin5">22시간 전</span>
             </div>
             <p class="card-text mb-4">대충 감성적인 글</p>
             <div class="mb-2 d-flex justify-content-between flex-column">
@@ -44,9 +48,7 @@
                 <button type="button" class="btn-tag-sm d-flex">
                   LifeStyle
                 </button>
-                <button type="button" class="btn-tag-sm d-flex">
-                  일상
-                </button>
+                <button type="button" class="btn-tag-sm d-flex">일상</button>
                 <button type="button" class="btn-tag-sm d-flex">
                   디지털 사진
                 </button>
@@ -75,16 +77,18 @@
               <span class="days">2022.08.01</span>
               <span class="lastTime">22시간 전</span>
             </div>
-            <img src="@/assets/mainimg2.jpg" class="card-img-top mb-4" alt="none" />
+            <img
+              src="@/assets/mainimg2.jpg"
+              class="card-img-top mb-4"
+              alt="none"
+            />
             <p class="card-text mb-4">대충 감성적인 글</p>
             <div class="mb-2 d-flex justify-content-between flex-column">
               <div class="mb-3 d-flex gap-1">
                 <button type="button" class="btn-tag-sm d-flex">
                   LifeStyle
                 </button>
-                <button type="button" class="btn-tag-sm d-flex">
-                  일상
-                </button>
+                <button type="button" class="btn-tag-sm d-flex">일상</button>
                 <button type="button" class="btn-tag-sm d-flex">
                   디지털 사진
                 </button>
@@ -113,7 +117,9 @@
             <div class="mt-4 mb-1 d-flex justify-content-center">
               <p class="filterTitle">검색어 필터</p>
             </div>
-            <div class="p-3 d-flex height100 justify-content-between flex-column">
+            <div
+              class="p-3 d-flex height100 justify-content-between flex-column"
+            >
               <div class="ml-2 mr-2 d-flex justify-content-between">
                 <div class="gap-2 d-flex justify-content-between">
                   <button type="button" class="btn-tag-sm d-flex">
@@ -130,11 +136,26 @@
                   </button>
                 </div>
               </div>
-              <div class="input-group mb-3 mt-3 d-flex justify-content-center align-items-center">
-                <div class="d-flex justify-content-center align-items-center w-95">
-                  <input type="text" class="form-control" placeholder="태그 검색" aria-label="Recipient's username"
-                    aria-describedby="button-addon2">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">+</button>
+              <div
+                class="input-group mb-3 mt-3 d-flex justify-content-center align-items-center"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center w-95"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="태그 검색"
+                    aria-label="Recipient's username"
+                    aria-describedby="button-addon2"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2"
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>
@@ -145,15 +166,9 @@
             </div>
             <div class="ml-2 mr-2 p-3 d-flex justify-content-between">
               <div class="gap-2 d-flex justify-content-between">
-                <button type="button" class="btn-tag-sm d-flex">
-                  영화
-                </button>
-                <button type="button" class="btn-tag-sm d-flex">
-                  음악
-                </button>
-                <button type="button" class="btn-tag-sm d-flex">
-                  축구
-                </button>
+                <button type="button" class="btn-tag-sm d-flex">영화</button>
+                <button type="button" class="btn-tag-sm d-flex">음악</button>
+                <button type="button" class="btn-tag-sm d-flex">축구</button>
               </div>
             </div>
           </div>
@@ -166,6 +181,9 @@
 <script></script>
 
 <style lang="sass" scoped>
+.margin5
+  margin-left: 5px
+
 .btnTag
     background-color: #E8E8E8
     border-radius: 20px

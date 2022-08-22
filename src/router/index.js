@@ -7,6 +7,10 @@ import TodoCreate from "../pages/todos/create/IndexPage.vue";
 import Login from "../pages/LoginPage.vue";
 import Signup from "../pages/SignUp.vue";
 import Mainpage from "../pages/mainpage/MainPage.vue";
+import Alarmmain from "../pages/alarm/AlarmMain.vue";
+import Useredit from "../pages/users/UserEdit.vue";
+import Usereditpass from "../pages/users/UserEditPass.vue";
+import Mypage from "../pages/mypage/MyPage.vue";
 // import home과 todos를 아래 컴포넌트에 넣어준다.
 
 const router = createRouter({
@@ -50,6 +54,26 @@ const router = createRouter({
       path: "/pages/mainpage",
       name: "Main",
       component: Mainpage,
+    },
+    {
+      path: "/pages/alarm",
+      name: "Alarm",
+      component: Alarmmain,
+    },
+    {
+      path: "/pages/users",
+      name: "UserEdit",
+      component: Useredit,
+    },
+    {
+      path: "/pages/users",
+      name: "UserEditPass",
+      component: Usereditpass,
+    },
+    {
+      path: "/pages/mypage",
+      name: "MyPage",
+      component: Mypage,
     },
   ],
 });

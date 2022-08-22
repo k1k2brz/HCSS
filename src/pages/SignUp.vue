@@ -5,7 +5,7 @@
     <div class="q-pa-md">
       <form ref="form" @submit.prevent="onSubmitForm">
         <div class="d-flex justify-content-center">
-          <h1>DeCommi</h1>
+          <h1 class="home-title mb-4">SIGN-UP</h1>
         </div>
         <div class="mb-3">
           <input
@@ -15,6 +15,9 @@
             placeholder="아이디를 입력해주세요."
             aria-describedby="emailHelp"
           />
+          <div v-show="idError" class="font14 mt-1 ml-2">
+            Email이 올바르지 않습니다.
+          </div>
         </div>
         <div class="mb-3">
           <input
@@ -23,8 +26,8 @@
             class="form-control"
             placeholder="비밀번호를 입력해주세요."
           />
-          <div id="password" class="form-text">
-            비밀번호는 영어, 숫자, 특수문자를 두가지 이상 입력해주세요.
+          <div v-show="passError" class="font14 mt-1 ml-2">
+            비밀번호를 입력해주세요.
           </div>
         </div>
         <div class="mb-3">
@@ -34,6 +37,9 @@
             class="form-control"
             placeholder="비밀번호를 다시 입력해주세요."
           />
+          <div v-show="repassError" class="font14 mt-1 ml-2">
+            비밀번호가 일치하지 않습니다.
+          </div>
         </div>
         <div class="mb-3">
           <input
@@ -43,8 +49,8 @@
             placeholder="이메일을 입력해주세요."
             aria-describedby="emailHelp"
           />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
+          <div v-show="emailError" class="font14 mt-1 ml-2">
+            Email을 입력해주세요.
           </div>
         </div>
         <div class="mb-3">
@@ -55,11 +61,26 @@
             placeholder="인증번호를 입력해주세요."
             aria-describedby="emailHelp"
           />
+          <div v-show="secuError" class="font14 mt-1 ml-2">
+            Email을 입력해주세요.
+          </div>
           <div id="emailHelp" class="form-text">
             10분 이내 메일이 도착하지 않으면 다시 시도해주세요.
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+        >
+          <button type="submit" class="btn btn-primary">회원가입</button>
+          <div class="d-flex">
+            <span> 계정이 있으신가요? </span>
+            <router-link
+              class="nav-link purple-color ml-1"
+              :to="{ name: 'Login' }"
+              >로그인</router-link
+            >
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -67,10 +88,15 @@
 
 <script>
 import { reactive } from "@vue/reactivity";
+import { ref } from "vue";
 
 export default {
-  name: "SignUp",
   setup() {
+    const idError = ref(false);
+    const passError = ref(false);
+    const repassError = ref(false);
+    const emailError = ref(false);
+    const secuError = ref(false);
     let info = reactive({
       id: "",
       pass: "",
@@ -81,28 +107,38 @@ export default {
 
     const onSubmitForm = () => {
       if (info.id === "") {
-        alert("ID를 확인해주세요");
+        idError.value = true;
         info.id.focus();
       } else if (info.pass === "") {
-        alert("비밀번호를 확인해주세요");
+        passError.value = true;
         info.pass.focus();
       } else if (info.repass === "") {
-        alert("비밀번호를 확인해주세요");
+        repassError.value = true;
         info.repass.focus();
       } else if (info.pass !== info.repass) {
-        alert("비밀번호가 일치하지 않습니다.");
+        repassError.value = true;
         info.pass.focus();
       } else if (info.email === "") {
-        alert("이메일을 입력해주세요.");
+        emailError.value = true;
         info.email.focus();
       } else if (info.certify === "") {
-        alert("인증번호가 올바르지 않습니다.");
+        secuError.value = true;
         info.certify.focus();
       }
+      idError.value = false;
+      passError.value = false;
+      repassError.value = false;
+      emailError.value = false;
+      secuError.value = false;
     };
     return {
       info,
       onSubmitForm,
+      idError,
+      passError,
+      repassError,
+      emailError,
+      secuError,
     };
   },
 };
@@ -111,4 +147,12 @@ export default {
 <style lang="sass" scoped>
 .q-pa-md
     max-width: 400px
+.font14
+  font-size: 14px
+  color: red
+.purple-color
+  color: #AE6FFF
+  &:hover
+    color: #AE6FFF
+    font-weight: 500
 </style>
