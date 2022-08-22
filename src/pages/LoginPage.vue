@@ -18,7 +18,7 @@
               aria-describedby="emailHelp"
             />
             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-            <span v-show="emailError" class="font14 mt-1 ml-2">
+            <span v-if="emailError" class="font14 mt-1 ml-2">
               Email을 입력해주세요.
             </span>
           </div>
@@ -29,7 +29,7 @@
               class="form-control"
               placeholder="비밀번호를 입력해주세요."
             />
-            <div class="font14 mt-1 ml-2" v-show="passError">
+            <div class="font14 mt-1 ml-2" v-if="passError">
               비밀번호를 입력해주세요.
             </div>
           </div>
@@ -59,12 +59,11 @@
 import { reactive } from "@vue/reactivity";
 import { onBeforeMount, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useStore } from 'vuex'
 
 export default {
   setup() {
-    const state = reactive({
-      loggedIn: false,
-    });
+    const store = useStore();
     const router = useRouter();
     const route = useRoute();
     const emailError = ref(false);
@@ -77,16 +76,19 @@ export default {
     // const loginPass = reactive({});
 
     const onSubmitForm = () => {
-      if (info.id === "") {
-        emailError.value = true;
-        info.id.focus();
-      } else if (info.pass === "") {
-        passError.value = true;
-        info.pass.focus();
-      }
-      emailError.value = false;
-      passError.value = false;
-      state.loggedIn = true;
+      //trim으로 잘라서 하나도 없으면
+        if (info.id.trim().length == 0) {
+          emailError.value = true;
+          return
+        }
+        if (info.pass.trim().length == 0) {
+          passError.value = true;
+          return
+        }
+        localStorage.setItem('token', 'logged')
+        emailError.value = false;
+        passError.value = false;
+        store.state.me = true
     };
 
     onBeforeMount(() => {
@@ -96,7 +98,7 @@ export default {
       // }
     });
 
-    return { emailError, passError, info, onSubmitForm, router, route, state };
+    return { emailError, passError, info, onSubmitForm, router, route, store };
   },
 };
 </script>
