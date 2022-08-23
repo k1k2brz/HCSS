@@ -16,6 +16,7 @@
           <!-- <div class="d-flex align-items-center">
             <input type="text" class="form-control">
           </div> -->
+          <router-link class="nav-link mr-3" :to="{ name: 'BookMark' }">북마크</router-link>
           <router-link class="nav-link mr-3" :to="{ name: 'MyPage' }">마이페이지</router-link>
           <router-link class="nav-link mr-3" :to="{ name: 'UserEdit' }">회원정보 수정</router-link>
           <router-link class="nav-link mr-3" :to="{ name: 'Alarm' }">알림페이지</router-link>

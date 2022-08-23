@@ -46,7 +46,7 @@
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <div class="LoginLine"></div>
-            <div class="ml-3 mr-3">또는</div>
+            <div class="ml-3 mr-3" style="min-width:30px">또는</div>
             <div class="LoginLine"></div>
           </div>
         </form>

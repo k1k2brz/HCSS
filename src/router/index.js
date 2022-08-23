@@ -11,6 +11,8 @@ import Alarmmain from "../pages/alarm/AlarmMain.vue";
 import Useredit from "../pages/users/UserEdit.vue";
 import Usereditpass from "../pages/users/UserEditPass.vue";
 import Mypage from "../pages/mypage/MyPage.vue";
+import Bookmark from "../pages/bookmark/BookMark.vue";
+import Diarywrite from "../pages/bookmark/DiaryWrite.vue";
 // import home과 todos를 아래 컴포넌트에 넣어준다.
 
 const router = createRouter({
@@ -24,12 +26,12 @@ const router = createRouter({
     },
     // 뒤에 todos붙여주면 Todos파일로 가게 Path설정
     {
-      path: "/pages",
+      path: "/pages/login",
       name: "Login",
       component: Login,
     },
     {
-      path: "/pages",
+      path: "/pages/signup",
       name: "Signup",
       component: Signup,
     },
@@ -74,6 +76,16 @@ const router = createRouter({
       path: "/pages/mypage",
       name: "MyPage",
       component: Mypage,
+    },
+    {
+      path: "/pages/diarywrite",
+      name: "DiaryWrite",
+      component: Diarywrite,
+    },
+    {
+      path: "/pages/BookMark",
+      name: "BookMark",
+      component: Bookmark,
     },
   ],
 });

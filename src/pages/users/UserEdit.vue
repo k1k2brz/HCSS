@@ -60,12 +60,12 @@
           <input
             class="input-box form-control"
             type="password"
-            placeholder="현재 비밀번호"
+            placeholder="새 비밀번호"
           />
           <input
             class="input-box form-control"
             type="password"
-            placeholder="현재 비밀번호"
+            placeholder="새 비밀번호 확인"
           />
           <div>
             <span class="text-sm bold">비밀번호 변경시 유의사항</span>
@@ -81,7 +81,7 @@
       </div>
     </div>
     <div class="stroke-default"></div>
-    <div class="edit-grid">
+    <div class="edit-grid2">
       <div class="purple-box d-flex justify-content-end">
         <div class="mt-3 mb-3 mr-3">계정 연동 여부</div>
       </div>
