@@ -19,7 +19,7 @@
                 class="form-control"
                 placeholder="비밀번호를 입력해주세요."
               />
-              <router-link class="nav-link mr-3" :to="{ name: 'UserEditPass' }"
+              <router-link class="nav-link mr-3" :to="{ name: 'UserEdit' }"
                 >확인</router-link
               >
             </div>

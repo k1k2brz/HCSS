@@ -15,11 +15,39 @@
         <div class="card mb-4">
           <div class="form-floating">
             <div class="card-body">
+              <!-- 1회만 클릭하고 다시 여기로 안돌아오면 해결 -->
               <textarea
+                v-if="textAll"
                 class="form-control"
                 placeholder="오늘의 다이어리를 작성해 보세요!"
                 id="floatingTextarea"
               />
+              <div>
+                <input
+                  type="text"
+                  class="none form-control"
+                  placeholder="제목을 입력하세요."
+                />
+                <textarea
+                  class="form-control"
+                  placeholder="오늘의 다이어리를 작성해 보세요!"
+                  id="floatingTextarea"
+                />
+                <button @click="publicPrivacy" class="purple-color">
+                  모든 사람이 다이어리를 읽을 수 있습니다.
+                </button>
+                <div class="d-flex">
+                  <div class="d-flex flex-column box-shadow p-4">
+                    <span>내 다이어리 공개 여부</span>
+                    <div>
+                      <span>공개</span>
+                    </div>
+                    <div>
+                      <span>비공개</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div>
                 <div class="LoginLine mb-2"></div>
               </div>
@@ -66,6 +94,40 @@
                 <button class="btn-icon">
                   <div class="bi bi-chat-dots"></div>
                 </button>
+              </div>
+              <div class="d-flex container">
+                <div
+                  class="d-flex flex-column box-shadow p-3 gap-2"
+                  style="min-width: 250px"
+                >
+                  <div class="d-flex justify-content-between">
+                    <div style="margin: auto; width: 100%">
+                      <span class="bold">내 북마크에 저장</span>
+                    </div>
+                    <button class="text-btn-big">+</button>
+                  </div>
+                  <div class="stroke-default"></div>
+                  <div class="mt-2 d-flex gap-3">
+                    <div class="box"></div>
+                    <span>bookmark1</span>
+                  </div>
+                  <div class="mt-1 d-flex gap-3">
+                    <div class="box"></div>
+                    <span>bookmark2</span>
+                  </div>
+                  <div class="mt-1 d-flex gap-3">
+                    <div class="box"></div>
+                    <span>bookmark3</span>
+                  </div>
+                </div>
+              </div>
+              <div class="container bm-container">
+                <div
+                  class="bookmarks d-flex justify-content-between box-shadow p-3"
+                >
+                  <span class="pl-3">북마크가 저장되었습니다.</span>
+                  <button class="text-btn pr-3">저장된 북마크 확인하기</button>
+                </div>
               </div>
             </div>
           </div>
@@ -184,6 +246,16 @@
 .margin5
   margin-left: 5px
 
+.text-btn-big
+  padding: 0
+  color: #AE6FFF
+  background: none
+  border: none
+  font-weight: 500
+  font-size: 14px
+  font-size: 20px
+  font-weight: 700
+
 .btnTag
     background-color: #E8E8E8
     border-radius: 20px
@@ -212,4 +284,26 @@
 
 .tagSearch
     background-color: white
+
+.none
+  border: none
+
+.purple-color
+  padding: 0.375rem 0.75rem
+  font-size: 15px
+  font-weight: 500
+  border: none
+  background: none
+
+.box
+  width: 30px
+  height: 30px
+  border-radius: 5px
+  background-color: #D8D8D8
+
+.bookmarks
+  font-size: 15px
+
+.bm-container
+  width: 500px
 </style>

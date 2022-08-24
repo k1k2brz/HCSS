@@ -12,35 +12,7 @@
         <div class="bold mt-3 mb-3 ml-4">홍길동</div>
         <div class="btn-end d-flex justify-content-end">
           <div class="d-flex justify-content-center align-items-center">
-            <button class="btn-regular-round">회원탈퇴</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="stroke-default"></div>
-    <div>
-      <div class="edit-grid">
-        <div class="stroke-top purple-box d-flex justify-content-end">
-          <div class="mt-3 mb-3 mr-3">아이디</div>
-        </div>
-        <div class="bold mt-3 mb-3 ml-4">decommi22</div>
-      </div>
-    </div>
-    <div class="stroke-default"></div>
-    <div>
-      <div class="edit-grid">
-        <div class="purple-box d-flex justify-content-end">
-          <div class="mt-3 mb-3 mr-3">이메일</div>
-        </div>
-        <div class="d-flex flex-column gap-3 ml-4 mb-3">
-          <div class="bold mt-3">email@email.com</div>
-          <div>
-            <div class="orange-box">
-              <span class="email-check ml-2">인증된 이메일 주소입니다.</span>
-            </div>
-          </div>
-          <div class="d-flex align-items-center">
-            <button class="btn-change">이메일 변경</button>
+            <Withdraw />
           </div>
         </div>
       </div>
@@ -49,24 +21,82 @@
     <div>
       <div class="edit-grid2">
         <div class="stroke-top purple-box d-flex justify-content-end">
+          <div class="mt-3 mb-3 mr-3">아이디</div>
+        </div>
+        <div class="bold mt-3 mb-3 ml-4">decommi22</div>
+      </div>
+    </div>
+    <div class="stroke-default"></div>
+    <div>
+      <div v-if="emailChange" class="edit-grid2">
+        <div class="purple-box d-flex justify-content-end">
+          <div class="mt-3 mb-3 mr-3">이메일</div>
+        </div>
+        <div class="d-flex flex-column gap-3 ml-4 mb-3">
+          <div class="bold mt-3">email@email.com</div>
+          <div>
+            <div class="d-flex">
+              <div class="orange-box pt-1 pb-1 pr-5 d-flex">
+                <span class="email-check ml-2">인증된 이메일 주소입니다.</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <button @click="emailBtn" class="btn-change">이메일 변경</button>
+          </div>
+        </div>
+      </div>
+      <div v-else class="edit-grid2">
+        <div class="purple-box d-flex justify-content-end">
+          <div class="mt-3 mb-3 mr-3">이메일</div>
+        </div>
+        <div class="d-flex flex-column gap-2 ml-4 mb-3">
+          <input
+            type="email"
+            class="mt-3 input-box form-control"
+            value="email@email.com"
+            placeholder="변경할 Email을 입력해주세요."
+          />
+          <div>
+            <span class="change-email-text ml-2"
+              >이메일 주소를 인증하시면 변경이 완료됩니다.</span
+            >
+          </div>
+          <div class="d-flex align-items-center mt-2">
+            <button class="btn-change" disabled>인증 메일 발송</button>
+            <button @click="cancelBtn" class="btn-change">취소</button>
+          </div>
+        </div>
+      </div>
+      <div class="stroke-default"></div>
+    </div>
+    <div>
+      <div class="edit-grid2">
+        <div class="purple-box d-flex justify-content-end">
           <div class="mt-3 mb-3 mr-3">비밀번호 변경</div>
         </div>
-        <div class="d-flex flex-column gap-3 ml-4">
+        <div class="d-flex flex-column gap-2 ml-4">
           <input
+            v-model="edit.nowpass"
             class="mt-3 input-box form-control"
             type="password"
             placeholder="현재 비밀번호"
           />
+          <span class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
           <input
+            v-model="edit.newpass"
             class="input-box form-control"
             type="password"
             placeholder="새 비밀번호"
           />
+          <span class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
           <input
+            v-model="edit.newrepass"
             class="input-box form-control"
             type="password"
             placeholder="새 비밀번호 확인"
           />
+          <span class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
           <div>
             <span class="text-sm bold">비밀번호 변경시 유의사항</span>
             <ul class="text-sm">
@@ -75,7 +105,9 @@
             </ul>
           </div>
           <div class="d-flex align-items-center mb-3">
-            <button class="btn-change">비밀번호 변경</button>
+            <button @submit.prevent="passSubmit()" class="btn-change">
+              비밀번호 변경
+            </button>
           </div>
         </div>
       </div>
@@ -95,7 +127,7 @@
     <div class="stroke-default"></div>
     <div>
       <div class="edit-grid2">
-        <div class="stroke-top purple-box d-flex justify-content-end">
+        <div class="purple-box d-flex justify-content-end">
           <div class="mt-3 mb-3 mr-3">DeCommi소식 받기</div>
         </div>
         <div class="d-flex flex-column gap-3 ml-4 mb-3">
@@ -115,12 +147,60 @@
 </template>
 
 <script>
-export default {};
+import Withdraw from "@/pages/users/UserWithdraw.vue";
+import { ref } from "vue";
+import { reactive } from "@vue/reactivity";
+
+export default {
+  components: {
+    Withdraw,
+  },
+  setup() {
+    let edit = reactive({
+      nowpass: "",
+      newpass: "",
+      newrepass: "",
+    });
+    let err = ref({
+      nowpassError: false,
+      newpassError: false,
+      newrepassError: false,
+    });
+    const emailChange = ref(true);
+    const emailBtn = () => {
+      if (emailChange.value == true) {
+        emailChange.value = false;
+      }
+    };
+
+    const cancelBtn = () => {
+      if (emailChange.value == false) {
+        emailChange.value = true;
+      }
+    };
+
+    const passSubmit = () => {
+      if (edit.nowpass.trim().length == 0) {
+        err.value.nowpassError = true;
+        return;
+      } else if (edit.newpass.trim().length == 0) {
+        err.value.newpassError = true;
+      } else if (edit.newpass !== edit.newrepass) {
+        err.value.newrepassError = true;
+      }
+      err.value.nowpassError = false;
+      err.value.newpassError = false;
+      err.value.newrepassError = false;
+    };
+    return { emailChange, emailBtn, cancelBtn, edit, passSubmit };
+  },
+};
 </script>
 
 <style lang="sass" scoped>
 .stroke-default
     margin: 0 !important
+    z-index: 100 !important
 .edit-grid
     display: grid
     grid-template-columns: repeat(5, 1fr)
@@ -129,6 +209,8 @@ export default {};
     grid-template-columns: 20% 80%
 .stroke-top
     border-top: 0.5px solid #D8D8D8
+.stroke-bottom
+    border-bottom: 0.5px solid #D8D8D8
 .btn-end
     grid-column: 5
     font-size: 16px
@@ -143,4 +225,7 @@ export default {};
     margin: 0
 .text-grey
     color: #B4B4B4
+.change-email-text
+    color: grey
+    font-size: 14px
 </style>

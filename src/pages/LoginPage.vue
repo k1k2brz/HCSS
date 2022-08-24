@@ -46,7 +46,7 @@
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <div class="LoginLine"></div>
-            <div class="ml-3 mr-3" style="min-width:30px">또는</div>
+            <div class="ml-3 mr-3" style="min-width: 30px">또는</div>
             <div class="LoginLine"></div>
           </div>
         </form>
@@ -59,7 +59,7 @@
 import { reactive } from "@vue/reactivity";
 import { onBeforeMount, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useStore } from 'vuex'
+import { useStore } from "vuex";
 
 export default {
   setup() {
@@ -77,18 +77,18 @@ export default {
 
     const onSubmitForm = () => {
       //trim으로 잘라서 하나도 없으면
-        if (info.id.trim().length == 0) {
-          emailError.value = true;
-          return
-        }
-        if (info.pass.trim().length == 0) {
-          passError.value = true;
-          return
-        }
-        localStorage.setItem('token', 'logged')
-        emailError.value = false;
-        passError.value = false;
-        store.state.me = true
+      if (info.id.trim().length == 0) {
+        emailError.value = true;
+        return;
+      }
+      if (info.pass.trim().length == 0) {
+        passError.value = true;
+        return;
+      }
+      localStorage.setItem("token", "logged");
+      emailError.value = false;
+      passError.value = false;
+      store.state.me = true;
     };
 
     onBeforeMount(() => {
@@ -106,7 +106,4 @@ export default {
 <style lang="sass" scoped>
 .LoginLine
     width: 160px
-.font14
-  font-size: 14px
-  color: red
 </style>

@@ -12,7 +12,7 @@ import Useredit from "../pages/users/UserEdit.vue";
 import Usereditpass from "../pages/users/UserEditPass.vue";
 import Mypage from "../pages/mypage/MyPage.vue";
 import Bookmark from "../pages/bookmark/BookMark.vue";
-import Diarywrite from "../pages/bookmark/DiaryWrite.vue";
+import Diarywrite from "../pages/mainpage/DiaryWrite.vue";
 // import home과 todos를 아래 컴포넌트에 넣어준다.
 
 const router = createRouter({
