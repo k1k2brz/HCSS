@@ -4,7 +4,7 @@
       <span class="home-title">회원정보 수정</span>
     </div>
     <div>
-      <div class="stroke-default"></div>
+      <hr />
       <div class="edit-grid">
         <div class="purple-box d-flex justify-content-end">
           <div class="mt-3 mb-3 mr-3">이름</div>
@@ -17,16 +17,16 @@
         </div>
       </div>
     </div>
-    <div class="stroke-default"></div>
+    <hr />
     <div>
       <div class="edit-grid2">
-        <div class="stroke-top purple-box d-flex justify-content-end">
+        <div class="purple-box d-flex justify-content-end">
           <div class="mt-3 mb-3 mr-3">아이디</div>
         </div>
         <div class="bold mt-3 mb-3 ml-4">decommi22</div>
       </div>
     </div>
-    <div class="stroke-default"></div>
+    <hr />
     <div>
       <div v-if="emailChange" class="edit-grid2">
         <div class="purple-box d-flex justify-content-end">
@@ -51,16 +51,10 @@
           <div class="mt-3 mb-3 mr-3">이메일</div>
         </div>
         <div class="d-flex flex-column gap-2 ml-4 mb-3">
-          <input
-            type="email"
-            class="mt-3 input-box form-control"
-            value="email@email.com"
-            placeholder="변경할 Email을 입력해주세요."
-          />
+          <input type="email" class="mt-3 input-box form-control" value="email@email.com"
+            placeholder="변경할 Email을 입력해주세요." />
           <div>
-            <span class="change-email-text ml-2"
-              >이메일 주소를 인증하시면 변경이 완료됩니다.</span
-            >
+            <span class="change-email-text ml-2">이메일 주소를 인증하시면 변경이 완료됩니다.</span>
           </div>
           <div class="d-flex align-items-center mt-2">
             <button class="btn-change" disabled>인증 메일 발송</button>
@@ -68,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="stroke-default"></div>
+      <hr />
     </div>
     <div>
       <div class="edit-grid2">
@@ -76,27 +70,12 @@
           <div class="mt-3 mb-3 mr-3">비밀번호 변경</div>
         </div>
         <div class="d-flex flex-column gap-2 ml-4">
-          <input
-            v-model="edit.nowpass"
-            class="mt-3 input-box form-control"
-            type="password"
-            placeholder="현재 비밀번호"
-          />
-          <span class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
-          <input
-            v-model="edit.newpass"
-            class="input-box form-control"
-            type="password"
-            placeholder="새 비밀번호"
-          />
-          <span class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
-          <input
-            v-model="edit.newrepass"
-            class="input-box form-control"
-            type="password"
-            placeholder="새 비밀번호 확인"
-          />
-          <span class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
+          <input v-model="edit.nowpass" class="mt-3 input-box form-control" type="password" placeholder="현재 비밀번호" />
+          <span v-if="edit.nowpassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
+          <input v-model="edit.newpass" class="input-box form-control" type="password" placeholder="새 비밀번호" />
+          <span v-if="edit.newpassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
+          <input v-model="edit.newrepass" class="input-box form-control" type="password" placeholder="새 비밀번호 확인" />
+          <span v-if="edit.newrepassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
           <div>
             <span class="text-sm bold">비밀번호 변경시 유의사항</span>
             <ul class="text-sm">
@@ -105,14 +84,14 @@
             </ul>
           </div>
           <div class="d-flex align-items-center mb-3">
-            <button @submit.prevent="passSubmit()" class="btn-change">
+            <button @click.prevent="passSubmit()" class="btn-change">
               비밀번호 변경
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="stroke-default"></div>
+    <hr />
     <div class="edit-grid2">
       <div class="purple-box d-flex justify-content-end">
         <div class="mt-3 mb-3 mr-3">계정 연동 여부</div>
@@ -124,7 +103,7 @@
         <div class="bi bi-chat-dots"></div>
       </div>
     </div>
-    <div class="stroke-default"></div>
+    <hr />
     <div>
       <div class="edit-grid2">
         <div class="purple-box d-flex justify-content-end">
@@ -142,13 +121,13 @@
         </div>
       </div>
     </div>
-    <div class="stroke-default"></div>
+    <hr />
   </div>
 </template>
 
 <script>
 import Withdraw from "@/pages/users/UserWithdraw.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { reactive } from "@vue/reactivity";
 
 export default {
@@ -160,8 +139,6 @@ export default {
       nowpass: "",
       newpass: "",
       newrepass: "",
-    });
-    let err = ref({
       nowpassError: false,
       newpassError: false,
       newrepassError: false,
@@ -179,18 +156,30 @@ export default {
       }
     };
 
+    onMounted(() => {
+
+    })
+
     const passSubmit = () => {
       if (edit.nowpass.trim().length == 0) {
-        err.value.nowpassError = true;
+        edit.nowpassError = true;
+        edit.newpassError = false;
+        edit.newrepassError = false;
         return;
       } else if (edit.newpass.trim().length == 0) {
-        err.value.newpassError = true;
+        edit.newpassError = true;
+        edit.nowpassError = false;
+        edit.newrepassError = false;
+        return;
       } else if (edit.newpass !== edit.newrepass) {
-        err.value.newrepassError = true;
+        edit.newrepassError = true;
+        edit.nowpassError = false;
+        edit.newpassError = false;
+        return;
       }
-      err.value.nowpassError = false;
-      err.value.newpassError = false;
-      err.value.newrepassError = false;
+      edit.nowpassError = false;
+      edit.newpassError = false;
+      edit.newrepassError = false;
     };
     return { emailChange, emailBtn, cancelBtn, edit, passSubmit };
   },
@@ -228,4 +217,10 @@ export default {
 .change-email-text
     color: grey
     font-size: 14px
+
+hr
+  margin: 0
+  padding: 0
+  font-size: 0.5px
+  background-color: grey
 </style>

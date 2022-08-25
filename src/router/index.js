@@ -13,6 +13,7 @@ import Usereditpass from "../pages/users/UserEditPass.vue";
 import Mypage from "../pages/mypage/MyPage.vue";
 import Bookmark from "../pages/bookmark/BookMark.vue";
 import Diarywrite from "../pages/mainpage/DiaryWrite.vue";
+import Servicecenter from "../pages/userserivce/ServiceCenter.vue";
 // import home과 todos를 아래 컴포넌트에 넣어준다.
 
 const router = createRouter({
@@ -63,7 +64,7 @@ const router = createRouter({
       component: Alarmmain,
     },
     {
-      path: "/pages/users",
+      path: "/pages/users/edit",
       name: "UserEdit",
       component: Useredit,
     },
@@ -86,6 +87,11 @@ const router = createRouter({
       path: "/pages/BookMark",
       name: "BookMark",
       component: Bookmark,
+    },
+    {
+      path: "/pages/Service",
+      name: "ServiceCenter",
+      component: Servicecenter,
     },
   ],
 });

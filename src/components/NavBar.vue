@@ -32,7 +32,7 @@
           <router-link class="nav-link mr-3" :to="{ name: 'MyPage' }"
             >마이페이지</router-link
           >
-          <router-link class="nav-link mr-3" :to="{ name: 'UserEdit' }"
+          <router-link class="nav-link mr-3" :to="{ name: 'UserEditPass' }"
             >회원정보 수정</router-link
           >
           <router-link class="nav-link mr-3" :to="{ name: 'Alarm' }"
@@ -40,6 +40,9 @@
           >
           <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
             >메인페이지</router-link
+          >
+          <router-link class="nav-link mr-3" :to="{ name: 'ServiceCenter' }"
+            >고객센터</router-link
           >
         </li>
       </ul>
