@@ -60,7 +60,6 @@ import { ref } from "vue";
 export default {
   setup() {
     const showModal = ref(true);
-    // 부모 컴포넌트에서 close이벤트를 사용할 수 있도록
     const btnCancel = () => {
       if (showModal.value == true) {
         showModal.value = false;

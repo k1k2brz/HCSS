@@ -44,10 +44,24 @@
           <div class="d-flex justify-content-center align-items-center mb-3">
             <button type="submit" class="btn btn-primary">로그인</button>
           </div>
+
+          <div class="d-flex justify-content-center">
+            <span> 회원이 아니신가요? </span>
+            <router-link
+              class="nav-link purple-color ml-1"
+              :to="{ name: 'Signup' }"
+              >회원가입</router-link
+            >
+          </div>
           <div class="d-flex justify-content-center align-items-center">
             <div class="LoginLine"></div>
             <div class="ml-3 mr-3" style="min-width: 30px">또는</div>
             <div class="LoginLine"></div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <div>구글</div>
+            <div>카톡</div>
+            <div>네이버</div>
           </div>
         </form>
       </div>
@@ -106,4 +120,10 @@ export default {
 <style lang="sass" scoped>
 .LoginLine
     width: 160px
+
+.purple-color
+  color: #AE6FFF
+  &:hover
+    color: #AE6FFF
+    font-weight: 500
 </style>

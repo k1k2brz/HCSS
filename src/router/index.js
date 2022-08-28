@@ -13,8 +13,13 @@ import Usereditpass from "../pages/users/UserEditPass.vue";
 import Mypage from "../pages/mypage/MyPage.vue";
 import Bookmark from "../pages/bookmark/BookMark.vue";
 import Diarywrite from "../pages/mainpage/DiaryWrite.vue";
-import Servicecenter from "../pages/userserivce/ServiceCenter.vue";
-// import home과 todos를 아래 컴포넌트에 넣어준다.
+import Servicewrite from "../pages/userserivce/ServiceWrite.vue";
+import Servicenotice from "../pages/userserivce/ServiceNotice.vue";
+import Servicefaq from "../pages/userserivce/ServiceFaq.vue";
+import Servicequestion from "../pages/userserivce/ServiceQuestion.vue";
+import Populartag from "../pages/findtag/PopularTag.vue";
+import Recommendtag from "../pages/findtag/RecommendTag.vue";
+import Selectgoodtag from "../pages/SelectGoodtag.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -89,9 +94,39 @@ const router = createRouter({
       component: Bookmark,
     },
     {
-      path: "/pages/Service",
-      name: "ServiceCenter",
-      component: Servicecenter,
+      path: "/pages/Service/qdwrite",
+      name: "ServiceWrite",
+      component: Servicewrite,
+    },
+    {
+      path: "/pages/Service/notice",
+      name: "ServiceNotice",
+      component: Servicenotice,
+    },
+    {
+      path: "/pages/Service/qd",
+      name: "ServiceQuestion",
+      component: Servicequestion,
+    },
+    {
+      path: "/pages/Service/faq",
+      name: "ServiceFaq",
+      component: Servicefaq,
+    },
+    {
+      path: "/pages/findtags/populartags",
+      name: "PopularTag",
+      component: Populartag,
+    },
+    {
+      path: "/pages/findtags/recommendtags",
+      name: "RecommendTag",
+      component: Recommendtag,
+    },
+    {
+      path: "/pages/selecttags",
+      name: "SelectGoodTag",
+      component: Selectgoodtag,
     },
   ],
 });

@@ -41,8 +41,11 @@
           <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
             >메인페이지</router-link
           >
-          <router-link class="nav-link mr-3" :to="{ name: 'ServiceCenter' }"
+          <router-link class="nav-link mr-3" :to="{ name: 'ServiceNotice' }"
             >고객센터</router-link
+          >
+          <router-link class="nav-link mr-3" :to="{ name: 'PopularTag' }"
+            >태그찾기</router-link
           >
         </li>
       </ul>

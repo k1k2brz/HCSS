@@ -3,85 +3,102 @@
     class="container container_default d-flex justify-content-center align-items-center p-0 m-0"
   >
     <div class="q-pa-md">
-      <form ref="form" @submit.prevent="onSubmitForm">
-        <div class="d-flex justify-content-center">
-          <h1 class="home-title mb-4">SIGN-UP</h1>
-        </div>
-        <div class="mb-3">
-          <input
-            type="email"
-            v-model="info.id"
-            class="form-control"
-            placeholder="아이디를 입력해주세요."
-            aria-describedby="emailHelp"
-          />
-          <div v-show="idError" class="font14 mt-1 ml-2">
-            Email이 올바르지 않습니다.
+      <div class="backgrondBox p-5">
+        <form ref="form" @submit.prevent="onSubmitForm">
+          <div class="d-flex justify-content-center">
+            <h1 class="home-title mb-4">SIGN-UP</h1>
           </div>
-        </div>
-        <div class="mb-3">
-          <input
-            type="password"
-            v-model="info.pass"
-            class="form-control"
-            placeholder="비밀번호를 입력해주세요."
-          />
-          <div v-show="passError" class="font14 mt-1 ml-2">
-            비밀번호를 입력해주세요.
+          <div class="mb-3">
+            <input
+              type="email"
+              v-model="info.id"
+              class="form-control"
+              placeholder="아이디를 입력해주세요."
+              aria-describedby="emailHelp"
+            />
+            <div v-show="idError" class="font14 mt-1 ml-2">
+              Email이 올바르지 않습니다.
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <input
-            type="password"
-            v-model="info.repass"
-            class="form-control"
-            placeholder="비밀번호를 다시 입력해주세요."
-          />
-          <div v-show="repassError" class="font14 mt-1 ml-2">
-            비밀번호가 일치하지 않습니다.
+          <div class="mb-3">
+            <input
+              type="password"
+              v-model="info.pass"
+              class="form-control"
+              placeholder="비밀번호를 입력해주세요."
+            />
+            <div v-show="passError" class="font14 mt-1 ml-2">
+              비밀번호를 입력해주세요.
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <input
-            type="email"
-            v-model="info.email"
-            class="form-control"
-            placeholder="이메일을 입력해주세요."
-            aria-describedby="emailHelp"
-          />
-          <div v-show="emailError" class="font14 mt-1 ml-2">
-            Email을 입력해주세요.
+          <div class="mb-3">
+            <input
+              type="password"
+              v-model="info.repass"
+              class="form-control"
+              placeholder="비밀번호를 다시 입력해주세요."
+            />
+            <div v-show="repassError" class="font14 mt-1 ml-2">
+              비밀번호가 일치하지 않습니다.
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <input
-            type="email"
-            v-model="info.certify"
-            class="form-control"
-            placeholder="인증번호를 입력해주세요."
-            aria-describedby="emailHelp"
-          />
-          <div v-show="secuError" class="font14 mt-1 ml-2">
-            Email을 입력해주세요.
+          <div class="mb-3">
+            <input
+              type="email"
+              v-model="info.email"
+              class="form-control"
+              placeholder="이메일을 입력해주세요."
+              aria-describedby="emailHelp"
+            />
+            <div v-show="emailError" class="font14 mt-1 ml-2">
+              Email을 입력해주세요.
+            </div>
           </div>
-          <div id="emailHelp" class="form-text">
-            10분 이내 메일이 도착하지 않으면 다시 시도해주세요.
+          <div class="mb-3">
+            <input
+              type="email"
+              v-model="info.certify"
+              class="form-control"
+              placeholder="인증번호를 입력해주세요."
+              aria-describedby="emailHelp"
+            />
+            <div v-show="secuError" class="font14 mt-1 ml-2">
+              Email을 입력해주세요.
+            </div>
+            <div id="emailHelp" class="form-text">
+              10분 이내 메일이 도착하지 않으면 다시 시도해주세요.
+            </div>
           </div>
-        </div>
-        <div
-          class="d-flex justify-content-center align-items-center flex-column"
-        >
-          <button type="submit" class="btn btn-primary">회원가입</button>
-          <div class="d-flex">
-            <span> 계정이 있으신가요? </span>
-            <router-link
-              class="nav-link purple-color ml-1"
-              :to="{ name: 'Login' }"
-              >로그인</router-link
-            >
+          <div
+            class="d-flex justify-content-center align-items-center flex-column"
+          >
+            <button type="submit" class="btn btn-primary">회원가입</button>
+            <div class="d-flex">
+              <span> 계정이 있으신가요? </span>
+              <router-link
+                class="nav-link purple-color ml-1"
+                :to="{ name: 'Login' }"
+                >로그인</router-link
+              >
+            </div>
           </div>
-        </div>
-      </form>
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="LoginLine"></div>
+            <div class="ml-3 mr-3" style="min-width: 30px">또는</div>
+            <div class="LoginLine"></div>
+          </div>
+          <router-link
+            class="btn btn-danger nav-link ml-1"
+            :to="{ name: 'SelectGoodTag' }"
+            >태그선택</router-link
+          >
+          <div class="d-flex justify-content-center">
+            <div>구글</div>
+            <div>카톡</div>
+            <div>네이버</div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -155,4 +172,6 @@ export default {
   &:hover
     color: #AE6FFF
     font-weight: 500
+.LoginLine
+    width: 160px
 </style>
