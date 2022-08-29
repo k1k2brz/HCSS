@@ -17,25 +17,15 @@
             <div class="card-body">
               <!-- 1회만 클릭하고 다시 여기로 안돌아오면 해결 -->
               <div>
-                <input
-                  v-model="myWriteTitle"
-                  type="text"
-                  class="myWriteTitle none form-control"
-                  placeholder="제목을 입력하세요."
-                />
-                <textarea
-                  v-model="myWriteContent"
-                  class="myWriteContent form-control"
-                  placeholder="오늘의 다이어리를 작성해 보세요!"
-                  id="floatingTextarea"
-                />
-                <button @click="publicPrivacy" class="purple-color mb-3">
+                <input v-if="clickTA" v-model="myWriteTitle" type="text" class="myWriteTitle none form-control"
+                  placeholder="제목을 입력하세요." />
+                <textarea v-model="myWriteContent" @click="clickTextarea" class="myWriteContent form-control" placeholder="오늘의 다이어리를 작성해 보세요!"
+                  id="floatingTextarea" />
+                <button v-if="clickTA" @click="publicPrivacy" class="purple-color mb-3">
                   모든 사람이 다이어리를 읽을 수 있습니다.
                 </button>
                 <div v-if="pp" class="d-flex position-absolute">
-                  <div
-                    class="bg-white d-flex flex-column box-shadow p-4 position-relative gap-1"
-                  >
+                  <div class="bg-white d-flex flex-column box-shadow p-4 position-relative gap-1">
                     <div>
                       <button @click="diaryPP" class="privacy-public">
                         내 다이어리 공개
@@ -43,11 +33,7 @@
                       <i v-if="diaryPrivacyCheck" class="bi bi-check-lg"></i>
                     </div>
                     <div>
-                      <button
-                        :disabled="commentDisable"
-                        @click="commentPP"
-                        class="privacy-public"
-                      >
+                      <button :disabled="commentDisable" @click="commentPP" class="privacy-public">
                         내 다이어리에 댓글 허용
                       </button>
                       <i v-if="commentPrivacyCheck" class="bi bi-check-lg"></i>
@@ -65,12 +51,10 @@
                   <div class="icon"></div>
                   <div class="icon"></div>
                 </div>
-                <a
-                  @click.prevent="writeCompletedBtn"
-                  :disabled="WCDisabled"
-                  class="btn-regular"
-                  >작성완료</a
-                >
+                <button @click="writeCompletedBtn" :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1"
+                  class="btn-regular">
+                  작성완료
+                </button>
               </div>
             </div>
           </div>
@@ -79,10 +63,10 @@
           <div class="card-body p-4">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">안녕하세요</h5>
-              <button
-                @click="reportContent"
-                class="btn-icon bi bi-three-dots"
-              ></button>
+              <div>
+                <button @click="reportContent" class="btn-icon bi bi-three-dots"></button>
+                <div>신고하기</div>
+              </div>
             </div>
             <div class="small-text mb-4">
               <span class="days">2022.08.01</span>
@@ -101,10 +85,7 @@
               </div>
               <div class="d-flex gap-3">
                 <button @click="bookmarkBtn" class="btn-icon">
-                  <div
-                    v-if="bookmarkSave"
-                    class="bi bi-bookmark-fill icon-purple"
-                  ></div>
+                  <div v-if="bookmarkSave" class="bi bi-bookmark-fill icon-purple"></div>
                   <div v-else class="bi bi-bookmark"></div>
                 </button>
                 <button @click="bookmarkFav" class="btn-icon">
@@ -115,22 +96,13 @@
                   <div class="bi bi-share-fill"></div>
                 </button>
                 <button @click="bookmarkCmt" class="btn-icon">
-                  <div
-                    v-if="bmCmt"
-                    class="bi bi-chat-dots-fill icon-purple"
-                  ></div>
+                  <div v-if="bmCmt" class="bi bi-chat-dots-fill icon-purple"></div>
                   <div v-else class="bi bi-chat-dots"></div>
                 </button>
               </div>
               <div>
-                <div
-                  v-if="bookmarkSave"
-                  class="d-flex container position-absolute"
-                >
-                  <div
-                    class="d-flex flex-column box-shadow zindex p-3 gap-2"
-                    style="min-width: 250px"
-                  >
+                <div v-if="bookmarkSave" class="d-flex container position-absolute">
+                  <div class="d-flex flex-column box-shadow zindex p-3 gap-2" style="min-width: 250px">
                     <div class="d-flex justify-content-between">
                       <div style="margin: auto; width: 100%">
                         <span class="bold">내 북마크에 저장</span>
@@ -156,10 +128,7 @@
                 </div>
               </div>
               <div class="container bm-container">
-                <div
-                  v-if="bookmarkSaveCheck"
-                  class="bookmarks d-flex justify-content-between box-shadow p-3"
-                >
+                <div v-if="bookmarkSaveCheck" class="bookmarks d-flex justify-content-between box-shadow p-3">
                   <span class="pl-3">북마크가 저장되었습니다.</span>
                   <button class="text-btn pr-3">저장된 북마크 확인하기</button>
                 </div>
@@ -168,11 +137,7 @@
                 <hr />
                 <div>
                   <div class="mb-3 d-flex justify-content-center gap-2">
-                    <input
-                      type="text"
-                      class="comment serviceSearch w-100"
-                      placeholder="댓글을 입력해주세요."
-                    />
+                    <input type="text" class="comment serviceSearch w-100" placeholder="댓글을 입력해주세요." />
                     <button class="btn-regular">댓글입력</button>
                   </div>
                 </div>
@@ -203,11 +168,7 @@
               <span class="days">2022.08.01</span>
               <span class="lastTime">22시간 전</span>
             </div>
-            <img
-              src="@/assets/mainimg2.jpg"
-              class="card-img-top mb-4"
-              alt="none"
-            />
+            <img src="@/assets/mainimg2.jpg" class="card-img-top mb-4" alt="none" />
             <p class="card-text mb-4">대충 감성적인 글</p>
             <div class="mb-2 d-flex justify-content-between flex-column">
               <div class="mb-3 d-flex gap-1">
@@ -243,9 +204,7 @@
             <div class="mt-4 mb-1 d-flex justify-content-center">
               <p class="filterTitle">검색어 필터</p>
             </div>
-            <div
-              class="p-3 d-flex height100 justify-content-between flex-column"
-            >
+            <div class="p-3 d-flex height100 justify-content-between flex-column">
               <div class="ml-2 mr-2 d-flex justify-content-between">
                 <div class="gap-2 d-flex justify-content-between">
                   <button type="button" class="btn-tag-sm d-flex">
@@ -262,24 +221,11 @@
                   </button>
                 </div>
               </div>
-              <div
-                class="input-group mb-3 mt-3 d-flex justify-content-center align-items-center"
-              >
-                <div
-                  class="d-flex justify-content-center align-items-center w-95"
-                >
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="태그 검색"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon2"
-                  />
-                  <button
-                    class="btn btn-outline-secondary"
-                    type="button"
-                    id="button-addon2"
-                  >
+              <div class="input-group mb-3 mt-3 d-flex justify-content-center align-items-center">
+                <div class="d-flex justify-content-center align-items-center w-95">
+                  <input type="text" class="form-control" placeholder="태그 검색" aria-label="Recipient's username"
+                    aria-describedby="button-addon2" />
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     +
                   </button>
                 </div>
@@ -327,6 +273,7 @@ export default {
     const WCDisabled = ref(true);
     const myWriteTitle = ref("");
     const myWriteContent = ref("");
+    const clickTA = ref(false);
 
     const publicPrivacy = () => {
       if (pp.value == false) {
@@ -356,6 +303,10 @@ export default {
       }
     };
 
+    const clickTextarea = () => {
+      clickTA.value = true
+    }
+
     const bookmarkBtn = () => {
       if (bookmarkSave.value == false) {
         bookmarkSave.value = true;
@@ -380,6 +331,7 @@ export default {
     const writeCompletedBtn = () => {
       if (myWriteTitle.value.length < 1) {
         WCDisabled.value = true;
+        console.log(WCDisabled.value)
       } else if (myWriteTitle.value.length >= 1) {
         WCDisabled.value = false;
       }
@@ -407,6 +359,8 @@ export default {
       WCDisabled,
       myWriteTitle,
       myWriteContent,
+      clickTextarea,
+      clickTA
     };
   },
 };

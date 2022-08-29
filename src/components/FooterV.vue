@@ -123,7 +123,7 @@ footer
 .copyright
   padding-top: 40px
   display: flex
-  justify-content: end
+  justify-content: flex-end
 
 .footer_right
   display: flex
