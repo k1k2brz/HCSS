@@ -19,8 +19,8 @@
               <div>
                 <input v-if="clickTA" v-model="myWriteTitle" type="text" class="myWriteTitle none form-control"
                   placeholder="제목을 입력하세요." />
-                <textarea v-model="myWriteContent" @click="clickTextarea" class="myWriteContent form-control" placeholder="오늘의 다이어리를 작성해 보세요!"
-                  id="floatingTextarea" />
+                <textarea v-model="myWriteContent" @click="clickTextarea" class="myWriteContent form-control"
+                  placeholder="오늘의 다이어리를 작성해 보세요!" id="floatingTextarea" />
                 <button v-if="clickTA" @click="publicPrivacy" class="purple-color mb-3">
                   모든 사람이 다이어리를 읽을 수 있습니다.
                 </button>
@@ -63,9 +63,15 @@
           <div class="card-body p-4">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">안녕하세요</h5>
-              <div>
-                <button @click="reportContent" class="btn-icon bi bi-three-dots"></button>
-                <div>신고하기</div>
+              <div class="d-flex flex-column">
+                <button @click="reportContent" class="btn-icon bi bi-three-dots d-flex justify-content-end"></button>
+                <div>
+                  <div v-if="reportToggle" class="reportBtn-shadow report-location position-absolute">
+                    <button class="reportBtn">
+                      <span class="reportBtn-text">신고하기</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="small-text mb-4">
@@ -113,8 +119,10 @@
                     </div>
                     <div class="stroke-default"></div>
                     <div class="mt-2 d-flex gap-3">
-                      <div class="box"></div>
-                      <span>bookmark1</span>
+                      <button @click="bookmarkSaveBtn" class="d-flex gap-3 bookmarkBtn">
+                        <div class="box"></div>
+                        <span>bookmark1</span>
+                      </button>
                     </div>
                     <div class="mt-1 d-flex gap-3">
                       <div class="box"></div>
@@ -127,9 +135,9 @@
                   </div>
                 </div>
               </div>
-              <div class="container bm-container">
-                <div v-if="bookmarkSaveCheck" class="bookmarks d-flex justify-content-between box-shadow p-3">
-                  <span class="pl-3">북마크가 저장되었습니다.</span>
+              <div class="container bm-container d-flex justify-content-center">
+                <div class="position-absolute bookmarks d-flex box-shadow p-3">
+                  <span class="pl-3 d-flex">북마크가 저장되었습니다.</span>
                   <button class="text-btn pr-3">저장된 북마크 확인하기</button>
                 </div>
               </div>
@@ -274,6 +282,7 @@ export default {
     const myWriteTitle = ref("");
     const myWriteContent = ref("");
     const clickTA = ref(false);
+    const reportToggle = ref(false);
 
     const publicPrivacy = () => {
       if (pp.value == false) {
@@ -338,6 +347,19 @@ export default {
       router.push("/pages/diarywrite");
     };
 
+    const bookmarkSaveBtn = () => {
+      if (bookmarkSaveCheck.value == false) {
+        bookmarkSaveCheck.value = true
+        bookmarkSave.value = false
+        // setTimeout 써서 사라지게
+      } else if (bookmarkSaveCheck.value == true)
+        bookmarkSaveCheck.value = false
+    }
+
+    const reportContent = () => {
+      reportToggle.value == false ? reportToggle.value = true : reportToggle.value = false
+    }
+
     return {
       pp,
       publicPrivacy,
@@ -360,7 +382,10 @@ export default {
       myWriteTitle,
       myWriteContent,
       clickTextarea,
-      clickTA
+      clickTA,
+      bookmarkSaveBtn,
+      reportToggle,
+      reportContent
     };
   },
 };
@@ -439,6 +464,7 @@ a
 
 .bookmarks
   font-size: 15px
+  bottom: -15px
 
 .bm-container
   width: 500px
@@ -467,4 +493,13 @@ a
 .Maincomment
   display: grid
   grid-template-columns: 1fr 5fr 1fr
+
+.bookmarkBtn
+  border: none
+  background: none
+
+.report-location
+  right: 30px
+  z-index: 10
+  
 </style>
