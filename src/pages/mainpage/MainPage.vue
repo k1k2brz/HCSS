@@ -19,8 +19,8 @@
               <div>
                 <input v-if="clickTA" v-model="myWriteTitle" type="text" class="myWriteTitle none form-control"
                   placeholder="제목을 입력하세요." />
-                <textarea v-model="myWriteContent" @click="clickTextarea" class="myWriteContent form-control"
-                  placeholder="오늘의 다이어리를 작성해 보세요!" id="floatingTextarea" />
+                <textarea v-model="myWriteContent" @input="autoResize" @click="clickTextarea"
+                  class="myWriteContent form-control" placeholder="오늘의 다이어리를 작성해 보세요!" id="floatingTextarea" />
                 <button v-if="clickTA" @click="publicPrivacy" class="purple-color mb-3">
                   모든 사람이 다이어리를 읽을 수 있습니다.
                 </button>
@@ -46,8 +46,14 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex gap-1">
-                  <div class="icon"></div>
-                  <div class="icon"></div>
+                  <div class="form-group centerz">
+                    <input type="file" ref="selectedFile" style="display: none">
+                    <button @click="onFileSelected" class="bi bi-file-image"></button>
+                    <!-- vue3 image upload easy (v-upload-image) 참고 -->
+                    <!-- npm설치해야하면 설치할 것 -->
+                    <!-- <button @click="onUpload">Upload</button> -->
+                  </div>
+                  <div class="bi bi-filetype-gif"></div>
                   <div class="icon"></div>
                   <div class="icon"></div>
                 </div>
@@ -67,9 +73,7 @@
                 <button @click="reportContent" class="btn-icon bi bi-three-dots d-flex justify-content-end"></button>
                 <div>
                   <div v-if="reportToggle" class="reportBtn-shadow report-location position-absolute">
-                    <button class="reportBtn">
-                      <span class="reportBtn-text">신고하기</span>
-                    </button>
+                    <ReportModal />
                   </div>
                 </div>
               </div>
@@ -107,8 +111,9 @@
                 </button>
               </div>
               <div>
-                <div v-if="bookmarkSave" class="d-flex container position-absolute">
-                  <div class="d-flex flex-column box-shadow zindex p-3 gap-2" style="min-width: 250px">
+                <div v-if="bookmarkSave" class="d-flex container bmSave position-relative">
+                  <div class="d-flex flex-column box-shadow position-absolute zindex p-3 gap-2"
+                    style="min-width: 250px">
                     <div class="d-flex justify-content-between">
                       <div style="margin: auto; width: 100%">
                         <span class="bold">내 북마크에 저장</span>
@@ -118,8 +123,8 @@
                       </button>
                     </div>
                     <div class="stroke-default"></div>
-                    <div class="mt-2 d-flex gap-3">
-                      <button @click="bookmarkSaveBtn" class="d-flex gap-3 bookmarkBtn">
+                    <div @click="bookmarkSaveBtn" class="mt-2 d-flex gap-3">
+                      <button class="d-flex gap-3 bookmarkBtn">
                         <div class="box"></div>
                         <span>bookmark1</span>
                       </button>
@@ -135,10 +140,10 @@
                   </div>
                 </div>
               </div>
-              <div class="container bm-container d-flex justify-content-center">
-                <div class="position-absolute bookmarks d-flex box-shadow p-3">
-                  <span class="pl-3 d-flex">북마크가 저장되었습니다.</span>
-                  <button class="text-btn pr-3">저장된 북마크 확인하기</button>
+              <div v-if="bookmarkSaveCheck" class="container bm-container d-flex position-absolute">
+                <div class="position-relative bookmarks flex-wrap bg-white d-flex box-shadow p-3">
+                  <span class="ml-3 d-flex">북마크가 저장되었습니다.</span>
+                  <button @click="bookmarkChecking" class="text-btn pr-3">저장된 북마크 확인하기</button>
                 </div>
               </div>
               <div v-if="bmCmt">
@@ -214,7 +219,7 @@
             </div>
             <div class="p-3 d-flex height100 justify-content-between flex-column">
               <div class="ml-2 mr-2 d-flex justify-content-between">
-                <div class="gap-2 d-flex justify-content-between">
+                <div class="flex-wrap gap-2 d-flex">
                   <button type="button" class="btn-tag-sm d-flex">
                     <span class="iconX">X</span>
                     공부
@@ -261,13 +266,14 @@
 <script>
 import { ref } from "@vue/reactivity";
 import router from "@/router";
+import ReportModal from "./ReportModal.vue";
+// import axios from "@/axios";
 // import BookmarkModal from "@/pages/mainpage/MainbookmarkModal.vue";
 
 export default {
   // components: {
   //   BookmarkModal,
   // },
-
   setup() {
     const pp = ref(false);
     const diaryPrivacyCheck = ref(true);
@@ -283,11 +289,13 @@ export default {
     const myWriteContent = ref("");
     const clickTA = ref(false);
     const reportToggle = ref(false);
+    const selectedFile = ref(null);
 
     const publicPrivacy = () => {
       if (pp.value == false) {
         pp.value = true;
-      } else if (pp.value == true) {
+      }
+      else if (pp.value == true) {
         pp.value = false;
       }
     };
@@ -297,7 +305,8 @@ export default {
         diaryPrivacyCheck.value = true;
         commentDisable.value = false;
         commentPrivacyCheck.value = true;
-      } else if (diaryPrivacyCheck.value == true) {
+      }
+      else if (diaryPrivacyCheck.value == true) {
         diaryPrivacyCheck.value = false;
         commentDisable.value = true;
         commentPrivacyCheck.value = false;
@@ -307,19 +316,21 @@ export default {
     const commentPP = () => {
       if (commentPrivacyCheck.value == true) {
         commentPrivacyCheck.value = false;
-      } else if (commentPrivacyCheck.value == false) {
+      }
+      else if (commentPrivacyCheck.value == false) {
         commentPrivacyCheck.value = true;
       }
     };
 
     const clickTextarea = () => {
-      clickTA.value = true
-    }
+      clickTA.value = true;
+    };
 
     const bookmarkBtn = () => {
       if (bookmarkSave.value == false) {
         bookmarkSave.value = true;
-      } else if (bookmarkSave.value == true) {
+      }
+      else if (bookmarkSave.value == true) {
         bookmarkSave.value = false;
       }
     };
@@ -340,8 +351,9 @@ export default {
     const writeCompletedBtn = () => {
       if (myWriteTitle.value.length < 1) {
         WCDisabled.value = true;
-        console.log(WCDisabled.value)
-      } else if (myWriteTitle.value.length >= 1) {
+        console.log(WCDisabled.value);
+      }
+      else if (myWriteTitle.value.length >= 1) {
         WCDisabled.value = false;
       }
       router.push("/pages/diarywrite");
@@ -349,16 +361,39 @@ export default {
 
     const bookmarkSaveBtn = () => {
       if (bookmarkSaveCheck.value == false) {
-        bookmarkSaveCheck.value = true
-        bookmarkSave.value = false
-        // setTimeout 써서 사라지게
-      } else if (bookmarkSaveCheck.value == true)
-        bookmarkSaveCheck.value = false
-    }
+        bookmarkSaveCheck.value = true;
+        bookmarkSave.value = false;
+        setTimeout(() => {
+          // 마우스가 올라가 있으면 사라지지 않게 이벤트 추가
+          // Fade 애니메이션 줄 것
+          bookmarkSaveCheck.value = false;
+        }, 5000);
+      }
+      else if (bookmarkSaveCheck.value == true)
+        bookmarkSaveCheck.value = false;
+    };
 
     const reportContent = () => {
-      reportToggle.value == false ? reportToggle.value = true : reportToggle.value = false
+      reportToggle.value == false ? reportToggle.value = true : reportToggle.value = false;
+    };
+
+    const bookmarkChecking = () => {
+      router.push("/pages/BookMark");
+    };
+
+    const onFileSelected = (event) => {
+      console.log(event)
+      selectedFile.value = event.target.files
     }
+
+    // const onUpload = () => {
+    //   const fileData = new FormData();
+    //   fileData.append('image', selectedFile.value, selectedFile.name)
+    //   axios.post('url-Link', )
+    //   .then(res => {
+    //     console.log(res)
+    //   })
+    // }
 
     return {
       pp,
@@ -385,9 +420,13 @@ export default {
       clickTA,
       bookmarkSaveBtn,
       reportToggle,
-      reportContent
+      reportContent,
+      bookmarkChecking,
+      onFileSelected,
+      selectedFile,
     };
   },
+  components: { ReportModal }
 };
 </script>
 
@@ -464,7 +503,8 @@ a
 
 .bookmarks
   font-size: 15px
-  bottom: -15px
+  top: 80px
+  right: 11px
 
 .bm-container
   width: 500px
@@ -472,9 +512,8 @@ a
 .bg-white
   background-color: white
 
-.position-relative
-  left: 25%
-  bottom: 10px
+.bmSave
+  top: 10px
 
 .zindex
   z-index: 10
@@ -489,6 +528,10 @@ a
 .comment
   border-radius: 10px
   border: 0.5px solid grey
+  &:focus
+    outline: 0.5px solid #AE6FFF
+  &::placeholder
+    padding-left: 10px
 
 .Maincomment
   display: grid
@@ -501,5 +544,6 @@ a
 .report-location
   right: 30px
   z-index: 10
+  background-color: white
   
 </style>
