@@ -47,13 +47,18 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex gap-1">
                   <div class="form-group centerz">
-                    <input type="file" ref="selectedFile" style="display: none">
-                    <button @click="onFileSelected" class="bi bi-file-image"></button>
+                    <div class="filebox">
+                      <label for="ex_file" ref="selectedFile" class="bi bi-file-image"></label>
+                      <input ref="imgInput" v-on:change="handleFileUpload()" type="file" id="ex_file" />
+                    </div>
                     <!-- vue3 image upload easy (v-upload-image) 참고 -->
                     <!-- npm설치해야하면 설치할 것 -->
                     <!-- <button @click="onUpload">Upload</button> -->
                   </div>
-                  <div class="bi bi-filetype-gif"></div>
+                  <div class="filebox">
+                    <label for="ex_gif" ref="selectedGif" class="bi bi-filetype-gif"></label>
+                    <input ref="gifInput" v-on:change="handleGifUpload()" type="file" id="ex_gif" />
+                  </div>
                   <div class="icon"></div>
                   <div class="icon"></div>
                 </div>
@@ -290,6 +295,17 @@ export default {
     const clickTA = ref(false);
     const reportToggle = ref(false);
     const selectedFile = ref(null);
+    const selectedFiles = ref(null);
+    const imgInput = ref(null);
+    const gifInput = ref(null);
+
+    const handleFileUpload = () => {
+      console.log("selected file", imgInput.value.files)
+    }
+
+    const handleGifUpload = () => {
+      console.log("selected file", gifInput.value.files)
+    }
 
     const publicPrivacy = () => {
       if (pp.value == false) {
@@ -381,11 +397,6 @@ export default {
       router.push("/pages/BookMark");
     };
 
-    const onFileSelected = (event) => {
-      console.log(event)
-      selectedFile.value = event.target.files
-    }
-
     // const onUpload = () => {
     //   const fileData = new FormData();
     //   fileData.append('image', selectedFile.value, selectedFile.name)
@@ -422,8 +433,12 @@ export default {
       reportToggle,
       reportContent,
       bookmarkChecking,
-      onFileSelected,
       selectedFile,
+      selectedFiles,
+      imgInput,
+      handleFileUpload,
+      handleGifUpload,
+      gifInput
     };
   },
   components: { ReportModal }
@@ -546,4 +561,27 @@ a
   z-index: 10
   background-color: white
   
+.picIcon
+  overflow: hidden
+
+.filebox label
+  display: inline-block
+  padding: 0.5em 0.75em
+  color: #999
+  background-color: #fdfdfd
+  font-size: 15px
+  cursor: pointer
+  border: 1px solid #ebebeb
+  border-radius: 3.25em
+
+.filebox input[type="file"]
+  position: absolute
+  width: 1px
+  height: 1px
+  padding: 0
+  margin: -1px
+  overflow: hidden
+  clip: rect(0,0,0,0)
+  border: 0
+
 </style>

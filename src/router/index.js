@@ -6,6 +6,7 @@ import Todo from "../pages/todos/IndexId.vue";
 import TodoCreate from "../pages/todos/create/IndexPage.vue";
 import Login from "../pages/LoginPage.vue";
 import Signup from "../pages/SignUp.vue";
+import Idfind from "../pages/IdFind.vue";
 import Mainpage from "../pages/mainpage/MainPage.vue";
 import Alarmmain from "../pages/alarm/AlarmMain.vue";
 import Useredit from "../pages/users/UserEdit.vue";
@@ -20,6 +21,7 @@ import Servicequestion from "../pages/userserivce/ServiceQuestion.vue";
 import Populartag from "../pages/findtag/PopularTag.vue";
 import Recommendtag from "../pages/findtag/RecommendTag.vue";
 import Selectgoodtag from "../pages/SelectGoodtag.vue";
+import Managerpage from "../pages/managerpage/ManagerPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -40,6 +42,11 @@ const router = createRouter({
       path: "/pages/signup",
       name: "Signup",
       component: Signup,
+    },
+    {
+      path: "/pages/idfind",
+      name: "IdFind",
+      component: Idfind,
     },
     {
       path: "/todos",
@@ -127,6 +134,11 @@ const router = createRouter({
       path: "/pages/selecttags",
       name: "SelectGoodTag",
       component: Selectgoodtag,
+    },
+    {
+      path: "/pages/managerpage/managerpage",
+      name: "ManagerPage",
+      component: Managerpage,
     },
   ],
 });

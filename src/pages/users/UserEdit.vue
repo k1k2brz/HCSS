@@ -127,7 +127,7 @@
 
 <script>
 import Withdraw from "@/pages/users/UserWithdraw.vue";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { reactive } from "@vue/reactivity";
 
 export default {
@@ -155,10 +155,6 @@ export default {
         emailChange.value = true;
       }
     };
-
-    onMounted(() => {
-
-    })
 
     const passSubmit = () => {
       if (edit.nowpass.trim().length == 0) {

@@ -47,6 +47,9 @@
           <router-link class="nav-link mr-3" :to="{ name: 'PopularTag' }"
             >태그찾기</router-link
           >
+          <router-link class="nav-link mr-3" :to="{ name: 'ManagerPage' }"
+            >관리자페이지</router-link
+          >
         </li>
       </ul>
     </nav>
