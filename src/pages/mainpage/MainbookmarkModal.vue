@@ -20,6 +20,7 @@ export default {
     };
     return { isOpen, hide, show };
   },
+  middleware: "authenticated",
 };
 </script>
 

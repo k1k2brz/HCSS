@@ -4,69 +4,75 @@
       <span class="home-title">내 북마크</span>
     </div>
     <div class="d-flex justify-content-between">
-      <Modal />
+      <!-- <Modal /> -->
+      <div class="d-flex justify-content-center align-items-center">
+        <button
+          class="new-folder"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          + 새 북마크 폴더
+        </button>
+        <div v-if="showModal" class="modal fade" id="exampleModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">새 북마크 추가</h5>
+                <button @click="btnCancel" class="btn-close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label"
+                      >폴더명</label
+                    >
+                    <input
+                      v-model="bookmarkValue"
+                      type="text"
+                      class="form-control"
+                      id="recipient-name"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  닫기
+                </button>
+                <button
+                  @click="addBookmark"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  북마크 추가
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="d-flex align-items-center gap-1">
         <button class="file-sort">이름순</button>
         <div class="boundaryLine"></div>
         <button class="file-sort">최신순</button>
       </div>
     </div>
-    <div v-if="openBtn" class="text-center">
+    <div v-if="bmExist" class="text-center">
       <div class="row row-cols-5 mt-3">
-        <div class="col d-flex flex-column p-2 mb-4">
+        <div
+          class="col d-flex p-2 mb-4"
+          v-for="(bmTag, index) in bmTags"
+          :key="'bmTag' + index"
+        >
           <div class="folder-box">
             <div class="folder-stroke p-4 mb-3">
               <img src="@/assets/folder.png" alt="" />
             </div>
-            <span class="bold">내 폴더</span>
-          </div>
-        </div>
-        <div class="col d-flex flex-column p-2 mb-4">
-          <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
-            </div>
-            <span class="bold">내 폴더</span>
-          </div>
-        </div>
-        <div class="col d-flex flex-column p-2 mb-4">
-          <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
-            </div>
-            <span class="bold">내 폴더</span>
-          </div>
-        </div>
-        <div class="col d-flex flex-column p-2 mb-4">
-          <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
-            </div>
-            <span class="bold">내 폴더</span>
-          </div>
-        </div>
-        <div class="col d-flex flex-column p-2 mb-4">
-          <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
-            </div>
-            <span class="bold">내 폴더</span>
-          </div>
-        </div>
-        <div class="col d-flex flex-column p-2 mb-4">
-          <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
-            </div>
-            <span class="bold">내 폴더</span>
-          </div>
-        </div>
-        <div class="col d-flex flex-column p-2 mb-4">
-          <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
-            </div>
-            <span class="bold">내 폴더</span>
+            <span class="bold">{{ bmTag }}</span>
           </div>
         </div>
       </div>
@@ -99,29 +105,53 @@
       </div>
     </div>
   </div>
-  <button @click="onBtn">Click Click</button>
 </template>
 
 <script>
-import { ref } from "vue";
-import Modal from "@/pages/bookmark/BmModal.vue";
+import { reactive, ref, watch } from "vue";
+// import Modal from "@/pages/bookmark/BmModal.vue";
 
 export default {
   components: {
-    Modal,
+    // Modal,
   },
   setup() {
-    const openBtn = ref(false);
+    const bmExist = ref(false);
+    const bookmarkValue = ref("");
+    let bmTags = reactive([]);
+    const showModal = ref(true);
 
-    const onBtn = () => {
-      if (openBtn.value == true) {
-        openBtn.value = false;
-      } else {
-        openBtn.value = true;
+    // 북마크에 들어왔을 때 북마크가 존재하면 화면 바뀜
+    watch(() => {
+      if (bmTags.length === 0) {
+        bmExist.value = false;
+      } else if (bmTags.length !== 0) {
+        bmExist.value = true;
+      }
+    });
+
+    const addBookmark = () => {
+      if (!bookmarkValue.value == "") {
+        bmTags.push(bookmarkValue.value);
+        bookmarkValue.value = "";
       }
     };
 
-    return { onBtn, openBtn };
+    const btnCancel = () => {
+      if (showModal.value == true) {
+        showModal.value = false;
+      }
+      showModal.value = true;
+    };
+
+    return {
+      bmExist,
+      addBookmark,
+      btnCancel,
+      showModal,
+      bookmarkValue,
+      bmTags,
+    };
   },
 };
 </script>

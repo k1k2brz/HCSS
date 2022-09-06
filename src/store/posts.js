@@ -5,6 +5,7 @@ export const state = () => ({
   mainPosts: [],
   // 무한 스크롤 준비 (게시글이 내가 정해둔 갯수 대로 로드 되는가 (기준 미달이면 false로 바뀜))
   hasMorePost: true,
+  reportToggle: true,
 });
 
 // front는 limit과 totalPosts를 알 수 없기 때문에 state에다 넣으면 안됨 (더미데이터용)
@@ -13,6 +14,7 @@ const totalPosts = 51;
 // 무한스크롤 로딩 게시글 수 제한
 const limit = 10;
 
+// 비동기 작업이 있으면 안됨 (promise, ajax, setTimeout등)
 export const mutations = {
   //동기적으로 바꿔준다.
   addMainPost(state, payload) {
@@ -57,12 +59,19 @@ export const mutations = {
     // limit이 아니면 hasMorePost가 false
     state.hasMorePost = fakePosts.length === limit;
   },
+
+  setReportToggle(state, payload) {
+    state.reportToggle = payload;
+  },
 };
 
 export const actions = {
+  // { commit } 자리가 context자리. console.log(context)하면 나옴
+  // commit, dispatch, state, rootState, getters등 있음
   add({ commit }, payload) {
     // 같은 모듈 안에서는 posts/addMainPost같이 앞에 안 붙여도 됨
     // 서버에 게시글 등록 요청 보냄
+    // state.add해도 되지만 뮤테이션을 통해 변경시키기 위해 commit으로 받음
     commit("addMainPost", payload);
   },
   remove({ commit }, payload) {
@@ -76,5 +85,8 @@ export const actions = {
     if (state.hasMorePost) {
       commit("loadPosts");
     }
+  },
+  reportToggle({ commit }, payload) {
+    commit("setReportToggle", payload);
   },
 };

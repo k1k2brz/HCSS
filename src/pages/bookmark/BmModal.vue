@@ -20,7 +20,12 @@
                 <label for="recipient-name" class="col-form-label"
                   >폴더명</label
                 >
-                <input type="text" class="form-control" id="recipient-name" />
+                <input
+                  v-model="bookmarkValue"
+                  type="text"
+                  class="form-control"
+                  id="recipient-name"
+                />
               </div>
             </form>
           </div>
@@ -32,7 +37,9 @@
             >
               닫기
             </button>
-            <button type="button" class="btn btn-primary">북마크 추가</button>
+            <button @click="addBookmark" type="button" class="btn btn-primary">
+              북마크 추가
+            </button>
           </div>
         </div>
       </div>
@@ -41,12 +48,22 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 
 export default {
   setup() {
+    const bookmarkValue = ref("");
+    let bmTags = reactive([]);
+
+    const addBookmark = () => {
+      if (!bookmarkValue.value == "") {
+        bmTags.push(bookmarkValue.value);
+        bookmarkValue.value = "";
+      }
+    };
+
     const showModal = ref(true);
-    // 부모 컴포넌트에서 close이벤트를 사용할 수 있도록
+
     const btnCancel = () => {
       if (showModal.value == true) {
         showModal.value = false;
@@ -57,6 +74,9 @@ export default {
     return {
       btnCancel,
       showModal,
+      bookmarkValue,
+      bmTags,
+      addBookmark,
     };
   },
 };

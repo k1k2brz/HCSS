@@ -56,7 +56,7 @@
           </div>
           <div class="mb-3">
             <input
-              type="email"
+              type="text"
               v-model="info.certify"
               class="form-control"
               placeholder="인증번호를 입력해주세요."
@@ -106,9 +106,14 @@
 <script>
 import { reactive } from "@vue/reactivity";
 import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const idError = ref(false);
     const passError = ref(false);
     const repassError = ref(false);
@@ -122,31 +127,44 @@ export default {
       certify: "",
     });
 
-    const onSubmitForm = () => {
+    const onSubmitForm = async () => {
       if (info.id === "") {
         idError.value = true;
-        info.id.focus();
+        return;
       } else if (info.pass === "") {
         passError.value = true;
-        info.pass.focus();
+        return;
       } else if (info.repass === "") {
         repassError.value = true;
-        info.repass.focus();
+        return;
       } else if (info.pass !== info.repass) {
         repassError.value = true;
-        info.pass.focus();
+        return;
       } else if (info.email === "") {
         emailError.value = true;
-        info.email.focus();
+        return;
       } else if (info.certify === "") {
         secuError.value = true;
-        info.certify.focus();
+        return;
       }
-      idError.value = false;
-      passError.value = false;
-      repassError.value = false;
-      emailError.value = false;
-      secuError.value = false;
+      router.push({
+        name: "Main",
+      });
+      try {
+        await store.dispatch("users/signUp", {
+          id: info.id,
+          pass: info.pass,
+          email: info.email,
+        });
+        idError.value = false;
+        passError.value = false;
+        repassError.value = false;
+        emailError.value = false;
+        secuError.value = false;
+        store.state.me = true;
+      } catch (err) {
+        console.log(err);
+      }
     };
     return {
       info,
@@ -158,6 +176,8 @@ export default {
       secuError,
     };
   },
+  // 회원가입 하지 않은 사람만 접근
+  middleware: "anonymous",
 };
 </script>
 

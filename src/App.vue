@@ -1,5 +1,6 @@
 <template>
   <!-- nav를 따로 뺀다 (가독성)-->
+  <!-- <div class="bg"> -->
   <div class="container absolute bg100">
     <div class="relative">
       <Navbar class="fixed-top" />
@@ -12,6 +13,7 @@
   <!-- 창이 이동했을때도 위에 메세지 띄어 줌 props안받기 때문에 지움 -->
   <Toast />
   <Footer />
+  <!-- </div> -->
 </template>
 
 <script>
@@ -30,4 +32,7 @@ export default {
 <style lang="sass">
 .bg100
   width: 100%
+
+.bg
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%)
 </style>

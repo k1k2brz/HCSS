@@ -10,7 +10,7 @@ export const useToast = () => {
   // 처음에 메세지 창 가리기 위한 false
   // vuex를 사용하기 때문에 ref(false)에서 store.state.toastMessage로
   // vuex에 있는 state를 가져와서 showToast에 담는다
-  // 하지만 store.state로만 옮기면 index값이 바꼈을 때 감지를 못함 그래서 computed를 사용
+  // *** 하지만 store.state로만 옮기면 index값이 바꼈을 때 감지를 못함 그래서 computed를 사용
   // const showToast = computed(
   //   () => store.getters["toast/toastMessageWithSmile"]
   // );
