@@ -1,20 +1,25 @@
 <template>
   <div
-    class="container container_default d-flex justify-content-center align-items-center p-0 m-0"
+    class="d-flex flex-column justify-content-center align-items-center p-0 m-0"
   >
-    <div class="d-flex justify-content-between mb-3">
+  <div>
+    <span>7월 30일 오늘의 할 일</span>
+    <div class="d-flex mb-3">
       <h2>To-Do List</h2>
-      <button class="btn btn-primary" @click="moveToCreatePage">
-        Create Todo
-      </button>
     </div>
-    <input
-      class="form-control"
-      type="text"
-      v-model="searchText"
-      placeholder="Search"
-      @keyup.enter="searchTodo"
-    />
+    <div clss="d-flex">
+      <input
+        class="form-control"
+        type="text"
+        v-model="searchText"
+        placeholder="Search"
+        @keyup.enter="searchTodo"
+      />
+      <button class="btn btn-primary" @click="moveToCreatePage">
+          Create Todo
+        </button>
+  </div>
+    </div>
     <!-- enter쳤을 때 이벤트발생 -->
     <hr />
     <!-- 자식 컴포넌트 생성 -->

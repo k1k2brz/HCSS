@@ -28,16 +28,15 @@ export default {
       const index = state.mainPosts.findIndex((v) => v.id === payload.postId);
       // 해당 게시글에 접근후 추가
       state.mainPosts[index].Comments.unshift(payload);
-      console.log(state.mainPosts[index].Comments);
     },
     changeComment(state, payload) {
-      const index = state.mainPosts.findIndex((v) => v.id === payload.postId);
+      const index = state.mainPosts.findIndex((v) => v.postId === payload.postId);
+      console.log(payload.content)
       state.mainPosts[index].Comments = payload.content;
     },
     removeComment(state, payload) {
-      console.log(state.mainPosts.Comments);
-      const index = state.mainPosts.findIndex((v) => v.id === payload.postId);
-      state.mainPosts[index].Comments[index].splice(index, 1);
+      const index = state.mainPosts.findIndex((v) => v.postId === payload.postId);
+      state.mainPosts[index].Comments.splice(index, 1);
     },
     // 가짜 데이터(아직 실제 데이터가 없으므로)
     loadPosts(state) {

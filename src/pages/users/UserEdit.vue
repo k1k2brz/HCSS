@@ -23,7 +23,7 @@
         <div class="purple-box d-flex justify-content-end">
           <div class="mt-3 mb-3 mr-3">아이디</div>
         </div>
-        <div class="bold mt-3 mb-3 ml-4">decommi22</div>
+        <div class="bold mt-3 mb-3 ml-4">{{me.id}}</div>
       </div>
     </div>
     <hr />
@@ -73,7 +73,7 @@
           <input v-model="edit.nowpass" class="mt-3 input-box form-control" type="password" placeholder="현재 비밀번호" />
           <span v-if="edit.nowpassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
           <input v-model="edit.newpass" class="input-box form-control" type="password" placeholder="새 비밀번호" />
-          <span v-if="edit.newpassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
+          <span v-if="edit.newpassError" class="font14 ml-2">비밀번호를 다시 확인해주세요.</span>
           <input v-model="edit.newrepass" class="input-box form-control" type="password" placeholder="새 비밀번호 확인" />
           <span v-if="edit.newrepassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
           <div>
@@ -128,13 +128,20 @@
 <script>
 import Withdraw from "@/pages/users/UserWithdraw.vue";
 import { ref } from "vue";
-import { reactive } from "@vue/reactivity";
+import { computed, reactive } from "@vue/reactivity";
+import { useStore } from "vuex";
 
 export default {
   components: {
     Withdraw,
   },
   setup() {
+    const store = useStore();
+
+    const me = computed(() => {
+      return store.state.users.me;
+    });
+
     let edit = reactive({
       nowpass: "",
       newpass: "",
@@ -157,12 +164,12 @@ export default {
     };
 
     const passSubmit = () => {
-      if (edit.nowpass.trim().length == 0) {
+      if (edit.nowpass !== store.state.users.me.pass) {
         edit.nowpassError = true;
         edit.newpassError = false;
         edit.newrepassError = false;
         return;
-      } else if (edit.newpass.trim().length == 0) {
+      } else if (edit.newpass.trim().length == 0 || edit.newpass === store.state.users.me.pass) {
         edit.newpassError = true;
         edit.nowpassError = false;
         edit.newrepassError = false;
@@ -177,7 +184,7 @@ export default {
       edit.newpassError = false;
       edit.newrepassError = false;
     };
-    return { emailChange, emailBtn, cancelBtn, edit, passSubmit };
+    return { me, emailChange, emailBtn, cancelBtn, edit, passSubmit };
   },
 };
 </script>

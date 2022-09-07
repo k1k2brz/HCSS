@@ -133,6 +133,13 @@
                   수정
                 </button>
                 <button
+                  v-else
+                  @click="changeComment"
+                  class="text-btn"
+                >
+                  수정취소
+                </button>
+                <button
                   @click="onRemoveComment"
                   class="ml-2 bi bi-x-lg"
                 ></button>
@@ -232,7 +239,8 @@ export default {
     const changeComment = () => {
       if (onComment.value == true) {
         onComment.value = false;
-        cmtChangeBtn.value = false;
+      } else if (onComment.value == false) {
+        onComment.value = true;
       }
     };
 

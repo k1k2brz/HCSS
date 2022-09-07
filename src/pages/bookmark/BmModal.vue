@@ -37,6 +37,13 @@
             >
               닫기
             </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
             <button @click="addBookmark" type="button" class="btn btn-primary">
               북마크 추가
             </button>

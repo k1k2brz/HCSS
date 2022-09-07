@@ -83,9 +83,9 @@
     <button
       v-if="WCDisabled"
       @click="writeCompletedBtn"
-      :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1"
       class="btn-regular"
     >
+    <!-- :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1" -->
       작성완료
     </button>
   </div>
@@ -156,12 +156,12 @@ export default {
     };
 
     const writeCompletedBtn = async () => {
-      if (myWriteTitle.value.length < 1) {
-        WCDisabled.value = true;
-        console.log(WCDisabled.value);
-      } else if (myWriteTitle.value.length >= 1) {
-        WCDisabled.value = false;
-      }
+      // if (myWriteTitle.value.length < 1) {
+      //   WCDisabled.value = true;
+      //   console.log(WCDisabled.value);
+      // } else if (myWriteTitle.value.length >= 1) {
+      //   WCDisabled.value = false;
+      // }
       store.dispatch("posts/add", {
         myWriteTitle: myWriteTitle.value,
         myWriteContent: myWriteContent.value,

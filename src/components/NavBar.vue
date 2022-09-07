@@ -19,9 +19,6 @@
           <router-link class="nav-link mr-3" :to="{ name: 'Signup' }"
             >회원가입</router-link
           >
-          <router-link class="nav-link" :to="{ name: 'Todos' }"
-            >Todos</router-link
-          >
         </li>
         <li
           v-else

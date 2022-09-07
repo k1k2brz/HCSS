@@ -6,11 +6,7 @@
     <div class="d-flex justify-content-between">
       <!-- <Modal /> -->
       <div class="d-flex justify-content-center align-items-center">
-        <button
-          class="new-folder"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
+        <button class="new-folder" data-bs-toggle="modal" data-bs-target="#exampleModal">
           + 새 북마크 폴더
         </button>
         <div v-if="showModal" class="modal fade" id="exampleModal">
@@ -23,31 +19,17 @@
               <div class="modal-body">
                 <form>
                   <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label"
-                      >폴더명</label
-                    >
-                    <input
-                      v-model="bookmarkValue"
-                      type="text"
-                      class="form-control"
-                      id="recipient-name"
-                    />
+                    <label for="recipient-name" class="col-form-label">폴더명</label>
+                    <input @keyup.enter="addBookmark" v-model="bookmarkValue" type="text" class="form-control"
+                      id="recipient-name" />
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   닫기
                 </button>
-                <button
-                  @click="addBookmark"
-                  type="button"
-                  class="btn btn-primary"
-                >
+                <button @click="addBookmark" type="button" class="btn btn-primary" data-bs-dismiss="modal">
                   북마크 추가
                 </button>
               </div>
@@ -63,43 +45,28 @@
     </div>
     <div v-if="bmExist" class="text-center">
       <div class="row row-cols-5 mt-3">
-        <div
-          class="col d-flex p-2 mb-4"
-          v-for="(bmTag, index) in bmTags"
-          :key="'bmTag' + index"
-        >
+        <div class="col d-flex p-2 mb-4" v-for="(bmTag, index) in bmTags" :key="'bmTag' + index">
           <div class="folder-box">
             <div class="folder-stroke p-4 mb-3">
-              <img src="@/assets/folder.png" alt="" />
+              <img src="@/assets/folder.png" alt="이미지 없음" />
             </div>
             <span class="bold">{{ bmTag }}</span>
+            <button @click="onRemoveBookmark" class="bi bi-x-lg"></button>
           </div>
         </div>
       </div>
     </div>
     <div v-else>
       <div class="w-100">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center pd-container"
-        >
-          <div
-            class="d-flex flex-column justify-content-center align-items-center"
-          >
+        <div class="d-flex flex-column justify-content-center align-items-center pd-container">
+          <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="w-20 d-flex justify-content-center align-items-center">
               <div class="bookmark-circle">
-                <img
-                  src="@/assets/bookmarkAll.png"
-                  alt="No image"
-                  class="ml-1"
-                />
+                <img src="@/assets/bookmarkAll.png" alt="No image" class="ml-1" />
               </div>
             </div>
-            <span class="bm-title mt-2"
-              >아직 북마크 된 다이어리가 없습니다.</span
-            >
-            <span class="bm-title-sm mt-2"
-              >다시 보고 싶은 다이어리를 북마크 해보세요!</span
-            >
+            <span class="bm-title mt-2">아직 북마크 된 다이어리가 없습니다.</span>
+            <span class="bm-title-sm mt-2">다시 보고 싶은 다이어리를 북마크 해보세요!</span>
           </div>
         </div>
       </div>
@@ -144,6 +111,10 @@ export default {
       showModal.value = true;
     };
 
+    const onRemoveBookmark = (index) => {
+      bmTags.splice(index, 1);
+    }
+
     return {
       bmExist,
       addBookmark,
@@ -151,6 +122,7 @@ export default {
       showModal,
       bookmarkValue,
       bmTags,
+      onRemoveBookmark,
     };
   },
 };

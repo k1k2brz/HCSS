@@ -110,9 +110,10 @@ export default {
         passError.value = true;
         return;
       }
-      localStorage.setItem("token", "logged");
+      // localStorage.setItem("token", "logged");
       store.dispatch("users/logIn", {
         id: info.id,
+        pass: info.pass,
       });
       emailError.value = false;
       passError.value = false;
