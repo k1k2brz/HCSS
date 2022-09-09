@@ -110,13 +110,17 @@
           <hr />
           <CommentWrite :post-id="post.id" />
           <div v-for="cmt in post.Comments" :key="cmt.id">
-            <div class="Maincomment mb-1">
-              <span>User</span>
-              <span v-if="onComment">{{ cmt.content }}</span>
+            <!-- 그리드로 변경 -->
+            <div class="Maincomment mb-1 d-flex justify-content-between gap-2">
+              <div v-if="onComment">
+                <span>User</span>
+                <span class="ml-3">{{ cmt.content }}</span>
+              </div>
               <div v-else>
+                <span>User</span>
                 <input
                   type="text"
-                  v-model="commentValue"
+                  v-model="comment.value"
                   @keyup.enter="changeCommentFinal"
                 />
                 <button @click="changeCommentFinal" class="btn-regular">
@@ -132,11 +136,7 @@
                 >
                   수정
                 </button>
-                <button
-                  v-else
-                  @click="changeComment"
-                  class="text-btn"
-                >
+                <button v-else @click="changeComment" class="text-btn">
                   수정취소
                 </button>
                 <button
@@ -153,11 +153,12 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
+import { reactive, ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import ReportModal from "@/pages/mainpage/ReportModal.vue";
 import CommentWrite from "./CommentWrite.vue";
+import { computed } from "@vue/runtime-core";
 
 export default {
   props: {
@@ -178,13 +179,27 @@ export default {
     const bmPlus = ref(false);
     const onComment = ref(true);
     const cmtChangeBtn = ref(true);
+    let comment = reactive({
+      value: "",
+    });
+    const content = computed(() => {
+      return store.state.posts.mainPosts;
+    });
 
     const onRemoveBtn = () => {
       store.dispatch("posts/remove", {
         id: props.post.id,
       });
     };
-    const onEditBtn = () => {};
+    const onEditBtn = () => {
+      store.dispatch("posts/changeMainPost", {
+        id: props.post.id,
+        myWriteTitle: props.post.myWriteTitle,
+        myWriteContent: props.post.myWriteContent,
+      });
+      // 버튼 눌렀을 때 이 mainPosts 전체를 넘겨줘야하나?
+      router.push({ name: "EditPost" });
+    };
 
     const reportContent = () => {
       if (reportToggle.value == false) {
@@ -239,8 +254,10 @@ export default {
     const changeComment = () => {
       if (onComment.value == true) {
         onComment.value = false;
+        cmtChangeBtn.value = false;
       } else if (onComment.value == false) {
         onComment.value = true;
+        cmtChangeBtn.value = true;
       }
     };
 
@@ -252,7 +269,7 @@ export default {
 
     const changeCommentFinal = () => {
       store.dispatch("posts/changeComment", {
-        content: props.post.content,
+        content: comment.value,
       });
     };
 
@@ -276,6 +293,8 @@ export default {
       cmtChangeBtn,
       changeCommentFinal,
       onRemoveComment,
+      comment,
+      content,
     };
   },
   components: { ReportModal, CommentWrite },
@@ -331,4 +350,7 @@ export default {
   font-size: 14px
   font-size: 20px
   font-weight: 700
+
+.card-text
+  white-space: pre-line
 </style>

@@ -7,6 +7,7 @@ export default {
   namespaced: true,
   state: {
     mainPosts: [],
+    changePosts: [],
     // 쓸데 없는 요청 안보내기
     hasMorePost: true,
     reportToggle: true,
@@ -23,6 +24,18 @@ export default {
       // 게시글 제거
       state.mainPosts.splice(index, 1);
     },
+    changeMainPost(state, payload) {
+      const index = state.mainPosts.findIndex((v) => v.id === payload.id);
+      // console.log(index);
+      // getters를 써야하나?
+      // 새 배열에 이 값들 다 넣고 빼서 써야하나?
+      console.log(payload.id);
+      console.log(payload.myWriteTitle);
+      console.log(payload.myWriteContent);
+      state.mainPosts[index].id = payload.id;
+      state.mainPosts[index].myWriteTitle = payload.myWriteTitle;
+      state.mainPosts[index].myWriteContent = payload.myWriteContent;
+    },
     addComment(state, payload) {
       // 게시글에 해당하는 게시글을 찾음
       const index = state.mainPosts.findIndex((v) => v.id === payload.postId);
@@ -30,13 +43,22 @@ export default {
       state.mainPosts[index].Comments.unshift(payload);
     },
     changeComment(state, payload) {
-      const index = state.mainPosts.findIndex((v) => v.postId === payload.postId);
-      console.log(payload.content)
-      state.mainPosts[index].Comments = payload.content;
+      console.log(payload.id);
+      console.log(payload.id);
+      console.log(payload.postId);
+      console.log(state.mainPosts);
+      console.log(state.mainPosts[0]);
+      console.log(state.mainPosts[0].Comments);
+      state.mainPosts.Comments = payload.content;
     },
     removeComment(state, payload) {
-      const index = state.mainPosts.findIndex((v) => v.postId === payload.postId);
-      state.mainPosts[index].Comments.splice(index, 1);
+      const index = state.mainPosts.findIndex((v) => v.id === payload.id);
+      console.log(index);
+      // const index2 = state.mainPosts[index].Comments.findIndex(
+      //   (v) => v.postId === payload.postId
+      // );
+      // console.log(index2);
+      state.mainPosts[index].Comments.splice(index - index, 1);
     },
     // 가짜 데이터(아직 실제 데이터가 없으므로)
     loadPosts(state) {
@@ -79,6 +101,9 @@ export default {
     remove({ commit }, payload) {
       commit("removeMainPost", payload);
     },
+    changeMainPost({ commit }, payload) {
+      commit("changeMainPost", payload);
+    },
     addComment({ commit }, payload) {
       commit("addComment", payload);
     },
@@ -97,5 +122,8 @@ export default {
     reportToggle({ commit }, payload) {
       commit("setReportToggle", payload);
     },
+    // uploadImages({ commit }, payload) {
+
+    // }
   },
 };

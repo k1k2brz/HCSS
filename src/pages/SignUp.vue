@@ -153,7 +153,7 @@ export default {
       try {
         await store.dispatch("users/signUp", {
           id: info.id,
-          repass: info.repass,
+          pass: info.pass,
           email: info.email,
         });
         idError.value = false;

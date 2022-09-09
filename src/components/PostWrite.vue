@@ -55,9 +55,10 @@
           ></label>
           <input
             ref="imgInput"
-            v-on:change="handleFileUpload()"
+            v-on:change="handleFileUpload"
             type="file"
             id="ex_file"
+            multiple
           />
         </div>
         <!-- vue3 image upload easy (v-upload-image) 참고 -->
@@ -80,12 +81,8 @@
       <div class="icon"></div>
       <div class="icon"></div>
     </div>
-    <button
-      v-if="WCDisabled"
-      @click="writeCompletedBtn"
-      class="btn-regular"
-    >
-    <!-- :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1" -->
+    <button v-if="WCDisabled" @click="writeCompletedBtn" class="btn-regular">
+      <!-- :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1" -->
       작성완료
     </button>
   </div>
@@ -115,8 +112,14 @@ export default {
 
     // intersection observe로 무한 스크롤링
 
-    const handleFileUpload = () => {
-      console.log("selected file", imgInput.value.files);
+    const handleFileUpload = (e) => {
+      // image는 Json이 아니라 FormData로 보낸다.
+      const imageFormData = new FormData();
+      [].forEach.call(e.target.files, (f) => {
+        imageFormData.append("image", f); // { image: [file1, file2] }
+      });
+      console.log(imageFormData);
+      // store.dispatch("posts/uploadImages", imageFormData);
     };
 
     const handleGifUpload = () => {
@@ -155,6 +158,10 @@ export default {
       clickTA.value = true;
     };
 
+    // 만약 백엔드에서 날짜 관련 자동으로 안받아지면 이거 하나하나 넣어야함
+    const today = new Date();
+    // time: today.getMonth(),
+
     const writeCompletedBtn = async () => {
       // if (myWriteTitle.value.length < 1) {
       //   WCDisabled.value = true;
@@ -184,6 +191,25 @@ export default {
       e.target.style.height = `${e.target.scrollHeight}px`;
     };
 
+    function getTimeFromJavaDate(s) {
+      const cont = new Date(s);
+      let date = new Date();
+      let calculated = (new Date(date.getTime()) - cont) / 1000; //초 계산
+      if (calculated < 60) {
+        return "방금 전";
+      } else if (calculated < 60 * 60) {
+        return `${Math.round(calculated / 60)}분 전`;
+      } else if (calculated < 60 * 60 * 24) {
+        return `${Math.round(calculated / (60 * 60))}시간 전`;
+      } else if (calculated < 60 * 60 * 24 * 7) {
+        return `${Math.round(calculated / (60 * 60 * 24))}일 전`;
+      } else if (calculated < 60 * 60 * 24 * 7 * 5) {
+        return `${Math.round(calculated / (60 * 60 * 24 * 7))}주 전`;
+      } else if (calculated > 31536000) {
+        return `${Math.round(calculated / 31536000)}년 전`;
+      }
+    }
+
     return {
       autoResize,
       pp,
@@ -205,6 +231,8 @@ export default {
       handleFileUpload,
       handleGifUpload,
       gifInput,
+      getTimeFromJavaDate,
+      today,
     };
   },
 };

@@ -21,7 +21,9 @@ import Servicequestion from "../pages/userserivce/ServiceQuestion.vue";
 import Populartag from "../pages/findtag/PopularTag.vue";
 import Recommendtag from "../pages/findtag/RecommendTag.vue";
 import Selectgoodtag from "../pages/SelectGoodtag.vue";
+import Selectdisliketag from "../pages/SelectDisliketag.vue";
 import Managerpage from "../pages/managerpage/ManagerPage.vue";
+import Editpost from "../components/EditPost.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -136,9 +138,19 @@ const router = createRouter({
       component: Selectgoodtag,
     },
     {
+      path: "/pages/selecttags",
+      name: "SelectDislikeTag",
+      component: Selectdisliketag,
+    },
+    {
       path: "/pages/managerpage/managerpage",
       name: "ManagerPage",
       component: Managerpage,
+    },
+    {
+      path: "/editPost",
+      name: "EditPost",
+      component: Editpost,
     },
   ],
 });

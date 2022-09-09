@@ -10,7 +10,7 @@
       <a href="#" @click="logoBtn" class="navbar-brand"><b>DeCommi</b></a>
       <ul class="navbar-nav">
         <li
-          v-if="!store.state.me"
+          v-if="!store.state.users.me"
           class="nav-item active d-flex align-items-center"
         >
           <router-link class="nav-link mr-3" :to="{ name: 'Login' }"
@@ -39,7 +39,10 @@
           <router-link class="nav-link mr-4" :to="{ name: 'Alarm' }"
             >알림</router-link
           >
-          <div v-if="navMenubar" class="position-relative menu-container">
+          <div
+            v-if="store.state.nav.navToggle"
+            class="position-relative menu-container"
+          >
             <div class="position-absolute menu-box">
               <div class="pl-2 pr-2 pt-3 pb-3 d-flex flex-column gap-3">
                 <div class="p-3 grey-bg d-flex flex-column">
@@ -74,11 +77,19 @@
             </div>
           </div>
           <div
-            @click="navMenuBtn"
+            @click.self="navMenuBtn"
             class="nav-menu-circle d-flex justify-content-center align-items-center"
           >
-            <button v-if="navMenuicon" class="bi bi-caret-left-fill"></button>
-            <button v-else class="bi bi-caret-down-fill"></button>
+            <button
+              @click.self="navMenuBtn"
+              v-if="store.state.nav.navMenuicon"
+              class="bi bi-caret-left-fill"
+            ></button>
+            <button
+              @click.self="navMenuBtn"
+              v-else
+              class="bi bi-caret-down-fill"
+            ></button>
           </div>
         </li>
       </ul>
@@ -95,24 +106,24 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    const navMenubar = ref(false);
-    const navMenuicon = ref(true);
+
+    const clickOuter = ref("");
 
     const navMenuBtn = () => {
-      if (navMenubar.value == false) {
-        navMenubar.value = true;
-        navMenuicon.value = false;
-      } else if (navMenubar.value == true) {
-        navMenubar.value = false;
-        navMenuicon.value = true;
+      if (store.state.nav.navToggle == false) {
+        store.state.nav.navToggle = true;
+        store.state.nav.navMenuicon = false;
+      } else if (store.state.nav.navToggle == true) {
+        store.state.nav.navToggle = false;
+        store.state.nav.navMenuicon = true;
       }
     };
 
     function loginCheck() {
       if (localStorage.getItem("token") == null) {
-        store.state.me = false;
+        store.state.users.me = false;
       } else if (localStorage.getItem("token") != null) {
-        store.state.me = true;
+        store.state.users.me = true;
       }
     }
     onMounted(() => {
@@ -120,11 +131,11 @@ export default {
     });
 
     const logoBtn = () => {
-      if (store.state.me == true) {
+      if (store.state.users.me == true) {
         router.push({
           name: "Main",
         });
-      } else if (store.state.me == false) {
+      } else if (store.state.users.me == false) {
         router.push({
           name: "Home",
         });
@@ -133,14 +144,22 @@ export default {
 
     const onLogout = () => {
       store.dispatch("users/logOut");
-      store.state.me == false;
       router.push({
         name: "Home",
       });
+      store.state.users.me == false;
+      store.state.nav.navToggle = false;
+      store.state.nav.navMenuicon = true;
     };
 
     const me = computed(() => {
       return store.state.users.me;
+    });
+    const navToggle = computed(() => {
+      return store.state.nav.navToggle;
+    });
+    const navMenuicon = computed(() => {
+      return store.state.nav.navMenuicon;
     });
 
     return {
@@ -148,11 +167,12 @@ export default {
       onMounted,
       loginCheck,
       logoBtn,
-      navMenubar,
       navMenuBtn,
-      navMenuicon,
       onLogout,
       me,
+      navToggle,
+      navMenuicon,
+      clickOuter,
     };
   },
 };

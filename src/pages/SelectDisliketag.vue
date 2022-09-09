@@ -7,7 +7,7 @@
         <div>
           <div class="d-flex justify-content-center mb-3">
             <h1 class="home-title mb-4">
-              <span class="home-title purple-color">관심있는 태그</span>를 선택
+              <span class="home-title purple-color">관심없는 태그</span>를 선택
               해주세요(최소 3개 이상)
             </h1>
           </div>
@@ -57,11 +57,11 @@ export default {
     });
 
     const tagSelectRouter = () => {
-      store.dispatch("users/favTags", {
-        favTags: tagSelection,
+      store.dispatch("users/dislikeTags", {
+        dislikeTags: tagSelection,
       });
       router.push({
-        name: "SelectDislikeTag",
+        name: "Main",
       });
     };
 
@@ -145,7 +145,7 @@ export default {
 
 
 .backgrondBox
-  background-color: #EEF6FF
+  background-color: #FBF9FF
   border: none
   padding: 60px 90px
 

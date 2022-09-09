@@ -23,7 +23,7 @@
         <div class="purple-box d-flex justify-content-end">
           <div class="mt-3 mb-3 mr-3">아이디</div>
         </div>
-        <div class="bold mt-3 mb-3 ml-4">{{me.id}}</div>
+        <div class="bold mt-3 mb-3 ml-4">{{ me.id }}</div>
       </div>
     </div>
     <hr />
@@ -33,7 +33,7 @@
           <div class="mt-3 mb-3 mr-3">이메일</div>
         </div>
         <div class="d-flex flex-column gap-3 ml-4 mb-3">
-          <div class="bold mt-3">email@email.com</div>
+          <div class="bold mt-3">{{ me.email }}</div>
           <div>
             <div class="d-flex">
               <div class="orange-box pt-1 pb-1 pr-5 d-flex">
@@ -51,13 +51,23 @@
           <div class="mt-3 mb-3 mr-3">이메일</div>
         </div>
         <div class="d-flex flex-column gap-2 ml-4 mb-3">
-          <input type="email" class="mt-3 input-box form-control" value="email@email.com"
-            placeholder="변경할 Email을 입력해주세요." />
+          <input
+            @keyup.enter="changeEditEmail"
+            v-model="edit.email"
+            @input="edit.email"
+            type="email"
+            class="mt-3 input-box form-control"
+            placeholder="변경할 Email을 입력해주세요."
+          />
           <div>
-            <span class="change-email-text ml-2">이메일 주소를 인증하시면 변경이 완료됩니다.</span>
+            <span class="change-email-text ml-2"
+              >이메일 주소를 인증하시면 변경이 완료됩니다.</span
+            >
           </div>
           <div class="d-flex align-items-center mt-2">
-            <button class="btn-change" disabled>인증 메일 발송</button>
+            <button @click="changeEditEmail" class="btn-change">
+              변경 확인
+            </button>
             <button @click="cancelBtn" class="btn-change">취소</button>
           </div>
         </div>
@@ -70,12 +80,33 @@
           <div class="mt-3 mb-3 mr-3">비밀번호 변경</div>
         </div>
         <div class="d-flex flex-column gap-2 ml-4">
-          <input v-model="edit.nowpass" class="mt-3 input-box form-control" type="password" placeholder="현재 비밀번호" />
-          <span v-if="edit.nowpassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
-          <input v-model="edit.newpass" class="input-box form-control" type="password" placeholder="새 비밀번호" />
-          <span v-if="edit.newpassError" class="font14 ml-2">비밀번호를 다시 확인해주세요.</span>
-          <input v-model="edit.newrepass" class="input-box form-control" type="password" placeholder="새 비밀번호 확인" />
-          <span v-if="edit.newrepassError" class="font14 ml-2">비밀번호가 맞지 않습니다.</span>
+          <input
+            v-model="edit.nowpass"
+            class="mt-3 input-box form-control"
+            type="password"
+            placeholder="현재 비밀번호"
+          />
+          <span v-if="edit.nowpassError" class="font14 ml-2"
+            >비밀번호가 맞지 않습니다.</span
+          >
+          <input
+            v-model="edit.newpass"
+            class="input-box form-control"
+            type="password"
+            placeholder="새 비밀번호"
+          />
+          <span v-if="edit.newpassError" class="font14 ml-2"
+            >비밀번호를 다시 확인해주세요.</span
+          >
+          <input
+            v-model="edit.newrepass"
+            class="input-box form-control"
+            type="password"
+            placeholder="새 비밀번호 확인"
+          />
+          <span v-if="edit.newrepassError" class="font14 ml-2"
+            >비밀번호가 맞지 않습니다.</span
+          >
           <div>
             <span class="text-sm bold">비밀번호 변경시 유의사항</span>
             <ul class="text-sm">
@@ -149,6 +180,7 @@ export default {
       nowpassError: false,
       newpassError: false,
       newrepassError: false,
+      email: store.state.users.me.email,
     });
     const emailChange = ref(true);
     const emailBtn = () => {
@@ -169,7 +201,10 @@ export default {
         edit.newpassError = false;
         edit.newrepassError = false;
         return;
-      } else if (edit.newpass.trim().length == 0 || edit.newpass === store.state.users.me.pass) {
+      } else if (
+        edit.newpass.trim().length == 0 ||
+        edit.newpass === store.state.users.me.pass
+      ) {
         edit.newpassError = true;
         edit.nowpassError = false;
         edit.newrepassError = false;
@@ -180,11 +215,38 @@ export default {
         edit.newpassError = false;
         return;
       }
+      store.dispatch("users/changePassword", {
+        pass: edit.newpass,
+      });
+      alert("비밀번호가 변경되었습니다.");
       edit.nowpassError = false;
       edit.newpassError = false;
       edit.newrepassError = false;
+      edit.nowpass = "";
+      edit.newpass = "";
+      edit.newrepass = "";
     };
-    return { me, emailChange, emailBtn, cancelBtn, edit, passSubmit };
+
+    const changeEditEmail = () => {
+      if (edit.email === "") {
+        alert("error");
+      } else {
+        store.dispatch("users/changeEmail", {
+          email: edit.email,
+        });
+        emailChange.value = true;
+      }
+    };
+
+    return {
+      me,
+      emailChange,
+      emailBtn,
+      cancelBtn,
+      edit,
+      passSubmit,
+      changeEditEmail,
+    };
   },
 };
 </script>
