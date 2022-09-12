@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     me: null,
+    bookmark: [],
   },
   mutations: {
     setMe(state, payload) {
@@ -12,6 +13,13 @@ export default {
     },
     changePassword(state, payload) {
       state.me.pass = payload.pass;
+    },
+    addBookmark(state, payload) {
+      state.bookmark.push(payload);
+    },
+    removeBookmark(state, payload) {
+      const index = state.bookmark.findIndex((v) => v.id === payload.id);
+      state.bookmark.splice(index, 1);
     },
   },
   actions: {
@@ -35,6 +43,12 @@ export default {
     },
     changePassword({ commit }, payload) {
       commit("changePassword", payload);
+    },
+    addBookmark({ commit }, payload) {
+      commit("addBookmark", payload);
+    },
+    removeBookmark({ commit }, payload) {
+      commit("removeBookmark", payload);
     },
     // getters는 component안에서 사용하는 computed라고 생각하면 편함
   },

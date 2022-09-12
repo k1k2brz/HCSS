@@ -58,6 +58,10 @@ export default {
 
     const tagSelectRouter = () => {
       store.dispatch("users/dislikeTags", {
+        id: store.state.users.me.id,
+        pass: store.state.users.me.pass,
+        email: store.state.users.me.email,
+        favTags: store.state.users.me.favTags,
         dislikeTags: tagSelection,
       });
       router.push({

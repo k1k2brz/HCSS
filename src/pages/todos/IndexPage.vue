@@ -1,24 +1,22 @@
 <template>
-  <div
-    class="d-flex flex-column justify-content-center align-items-center p-0 m-0"
-  >
-  <div>
-    <span>7월 30일 오늘의 할 일</span>
-    <div class="d-flex mb-3">
-      <h2>To-Do List</h2>
-    </div>
-    <div clss="d-flex">
-      <input
-        class="form-control"
-        type="text"
-        v-model="searchText"
-        placeholder="Search"
-        @keyup.enter="searchTodo"
-      />
-      <button class="btn btn-primary" @click="moveToCreatePage">
+  <div class="d-flex flex-column p-0 m-0">
+    <div>
+      <span>7월 30일 오늘의 할 일</span>
+      <div class="d-flex mb-3">
+        <h2>To-Do List</h2>
+      </div>
+      <div clss="d-flex">
+        <input
+          class="form-control"
+          type="text"
+          v-model="searchText"
+          placeholder="Search"
+          @keyup.enter="searchTodo"
+        />
+        <button class="btn btn-primary" @click="moveToCreatePage">
           Create Todo
         </button>
-  </div>
+      </div>
     </div>
     <!-- enter쳤을 때 이벤트발생 -->
     <hr />

@@ -87,11 +87,6 @@
             <div class="ml-3 mr-3" style="min-width: 30px">또는</div>
             <div class="LoginLine"></div>
           </div>
-          <router-link
-            class="btn btn-danger nav-link ml-1"
-            :to="{ name: 'SelectGoodTag' }"
-            >태그선택</router-link
-          >
           <div class="d-flex justify-content-center">
             <div>구글</div>
             <div>카톡</div>
@@ -148,7 +143,7 @@ export default {
         return;
       }
       router.push({
-        name: "Main",
+        name: "SelectGoodTag",
       });
       try {
         await store.dispatch("users/signUp", {

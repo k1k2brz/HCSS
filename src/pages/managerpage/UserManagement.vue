@@ -63,7 +63,46 @@
         </div>
       </div>
     </div>
-    <div class="mt-3"></div>
+    <div class="mt-3">
+      <div class="mb-3 d-flex justify-content-center gap-3">
+        <input
+          type="text"
+          class="form-control serviceSearch"
+          aria-label="Text input with segmented dropdown button"
+        />
+        <button class="btn-regular">검색</button>
+        <div class="d-flex">
+          <select class="form-select form-control" id="inputGroupSelect02">
+            <option value="1">제목</option>
+            <option value="2">내용</option>
+            <option value="3">제목+내용</option>
+          </select>
+        </div>
+      </div>
+      <div class="bg p-4">
+        <div class="grid justify-content-center align-items-center mb-3">
+          <span>번호</span>
+          <span>이름</span>
+          <span>아이디</span>
+          <span>이메일</span>
+          <span>방문수</span>
+          <span>가입일</span>
+          <span>기능</span>
+        </div>
+        <div class="grid">
+          <span>1</span>
+          <span>사용자</span>
+          <span>decomi</span>
+          <span>decomi@email.com</span>
+          <span>1000</span>
+          <span>2022-01-01</span>
+          <div class="d-flex gap-2">
+            <button>수정</button>
+            <button>삭제</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -75,5 +114,5 @@
 
 .grid
   display: grid
-  grid-template-columns: 1fr 1fr 2fr 1fr 2fr 1fr 1fr 1fr
+  grid-template-columns: repeat(7, 1fr)
 </style>

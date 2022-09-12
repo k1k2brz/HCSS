@@ -63,7 +63,48 @@
         </div>
       </div>
     </div>
-    <div class="mt-3"></div>
+    <div class="mt-3">
+      <div class="mb-3 d-flex justify-content-center gap-3">
+        <input
+          type="text"
+          class="form-control serviceSearch"
+          aria-label="Text input with segmented dropdown button"
+        />
+        <button class="btn-regular">검색</button>
+        <div class="d-flex">
+          <select class="form-select form-control" id="inputGroupSelect02">
+            <option value="1">제목</option>
+            <option value="2">내용</option>
+            <option value="3">제목+내용</option>
+          </select>
+        </div>
+      </div>
+      <div class="bg p-4">
+        <div class="grid justify-content-center align-items-center mb-3">
+          <span>태그명</span>
+          <span>총 사용된 횟수</span>
+          <span>최근 1주일간 사용된 횟수</span>
+          <span>검색된 횟수</span>
+          <span>최근 1주일간 검색된 횟수</span>
+          <span>추천 수</span>
+          <span>비추천 수</span>
+          <span>EDIT</span>
+        </div>
+        <div class="grid">
+          <span>#태그1</span>
+          <span>155</span>
+          <span>152</span>
+          <span>10</span>
+          <span>441</span>
+          <span>100</span>
+          <span>155</span>
+          <div class="d-flex gap-2">
+            <button>수정</button>
+            <button>삭제</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

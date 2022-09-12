@@ -23,7 +23,14 @@ import Recommendtag from "../pages/findtag/RecommendTag.vue";
 import Selectgoodtag from "../pages/SelectGoodtag.vue";
 import Selectdisliketag from "../pages/SelectDisliketag.vue";
 import Managerpage from "../pages/managerpage/ManagerPage.vue";
+import Tagmanagement from "../pages/managerpage/TagManagement.vue";
+import Reportmanagement from "../pages/managerpage/ReportManagement.vue";
+import Dashboard from "../pages/managerpage/DashBoard.vue";
+import Statisticsmanagement from "../pages/managerpage/StatisticsManagement.vue";
+import Usermanagement from "../pages/managerpage/UserManagement.vue";
 import Editpost from "../components/EditPost.vue";
+import Mydiary from "../pages/mypage/MyDiary.vue";
+import CkEditor from "../pages/CkEditor.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -148,9 +155,44 @@ const router = createRouter({
       component: Managerpage,
     },
     {
+      path: "/pages/managerpage/tag",
+      name: "TagManagement",
+      component: Tagmanagement,
+    },
+    {
+      path: "/pages/managerpage/report",
+      name: "ReportManagement",
+      component: Reportmanagement,
+    },
+    {
+      path: "/pages/managerpage/dashboard",
+      name: "DashBoard",
+      component: Dashboard,
+    },
+    {
+      path: "/pages/managerpage/user",
+      name: "UserManagement",
+      component: Usermanagement,
+    },
+    {
+      path: "/pages/managerpage/statistics",
+      name: "StatisticsManagement",
+      component: Statisticsmanagement,
+    },
+    {
       path: "/editPost",
       name: "EditPost",
       component: Editpost,
+    },
+    {
+      path: "/pages/mydiary",
+      name: "MyDiary",
+      component: Mydiary,
+    },
+    {
+      path: "/pages/write",
+      name: "CkEditor",
+      component: CkEditor,
     },
   ],
 });

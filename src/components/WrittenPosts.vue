@@ -13,25 +13,30 @@
               v-if="reportToggle"
               class="reportBtn-shadow report-location position-absolute"
             >
-              <button
-                @click="onRemoveBtn"
-                type="button"
-                class="reportBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                삭제하기
-              </button>
-              <button
-                @click="onEditBtn"
-                type="button"
-                class="reportBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                수정하기
-              </button>
-              <ReportModal />
+              <div>
+                <!-- 본인의 포스팅일시 (email을 받아서) v-if로 보이는거 다르게 -->
+                <button
+                  @click="onEditBtn"
+                  type="button"
+                  class="reportBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  수정하기
+                </button>
+                <button
+                  @click="onRemoveBtn"
+                  type="button"
+                  class="reportBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  삭제하기
+                </button>
+              </div>
+              <div>
+                <ReportModal />
+              </div>
             </div>
           </div>
         </div>

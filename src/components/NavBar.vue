@@ -22,23 +22,35 @@
         </li>
         <li
           v-else
-          class="nav-item active d-flex justify-content-center align-items-center"
+          class="nav-item active d-flex justify-content-between align-items-center"
         >
           <!-- <div class="d-flex align-items-center">
             <input type="text" class="form-control">
           </div> -->
-          <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
-            >홈</router-link
-          >
-          <router-link class="nav-link mr-3" :to="{ name: 'BookMark' }"
-            >북마크</router-link
-          >
-          <router-link class="nav-link mr-3" :to="{ name: 'PopularTag' }"
-            >태그찾기</router-link
-          >
-          <router-link class="nav-link mr-4" :to="{ name: 'Alarm' }"
-            >알림</router-link
-          >
+          <div class="d-flex justify-content-center align-items-center">
+            <input
+              type="text"
+              class="form-control serviceSearch mr-5"
+              aria-label="Text input with segmented dropdown button"
+            />
+          </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
+              >홈</router-link
+            >
+            <router-link class="nav-link mr-3" :to="{ name: 'MyDiary' }"
+              >내 다이어리</router-link
+            >
+            <router-link class="nav-link mr-3" :to="{ name: 'BookMark' }"
+              >북마크</router-link
+            >
+            <router-link class="nav-link mr-3" :to="{ name: 'PopularTag' }"
+              >태그찾기</router-link
+            >
+            <router-link class="nav-link mr-4" :to="{ name: 'Alarm' }"
+              >알림</router-link
+            >
+          </div>
           <div
             v-if="store.state.nav.navToggle"
             class="position-relative menu-container"
@@ -50,10 +62,11 @@
                   <span>{{ me.id }}</span>
                 </div>
                 <div class="d-flex flex-column ml-2">
-                  <router-link
+                  <a
+                    href="#"
+                    @click="myPage"
                     class="nav-link menu-hover menu-btn"
-                    :to="{ name: 'MyPage' }"
-                    >마이페이지</router-link
+                    >마이페이지</a
                   >
                   <router-link
                     class="menu-hover menu-btn nav-link"
@@ -142,6 +155,14 @@ export default {
       }
     };
 
+    const myPage = () => {
+      router.push({
+        name: "MyPage",
+      });
+      store.state.nav.navToggle = false;
+      store.state.nav.navMenuicon = true;
+    };
+
     const onLogout = () => {
       store.dispatch("users/logOut");
       router.push({
@@ -173,6 +194,7 @@ export default {
       navToggle,
       navMenuicon,
       clickOuter,
+      myPage,
     };
   },
 };
