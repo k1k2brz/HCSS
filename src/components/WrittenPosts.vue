@@ -203,7 +203,7 @@ export default {
         myWriteContent: props.post.myWriteContent,
       });
       // 버튼 눌렀을 때 이 mainPosts 전체를 넘겨줘야하나?
-      router.push({ name: "EditPost" });
+      router.push({ name: "CkEditor" });
     };
 
     const reportContent = () => {

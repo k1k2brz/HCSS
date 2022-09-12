@@ -51,10 +51,12 @@ export default {
     let tags = reactive([]);
 
     const addTag = () => {
-      if (!tagValue.value == "") {
-        tags.push(tagValue.value);
+      let result = tagValue.value.trim().replace(/ /, "");
+      if (!result == "") {
+        tags.push(result);
         tagValue.value = "";
       }
+      tagValue.value = "";
     };
 
     const removeTag = (index) => {

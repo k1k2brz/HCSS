@@ -14,6 +14,9 @@
   <div class="d-flex flex-column gap-5">
     <div>
       <h3>활동기록</h3>
+      <div class="position-relative">
+        <div class="position-absolute"></div>
+      </div>
     </div>
     <div>
       <h3>자주 사용하는 태그</h3>
