@@ -23,6 +23,7 @@
         <tbody>
           <tr v-for="(date, idx) in dates" :key="idx">
             <td
+            @click="calendarDay"
               v-for="(day, secondIdx) in date"
               :key="secondIdx"
               :class="{
@@ -62,6 +63,8 @@ export default {
     const lastMonthStart = ref(0);
     const nextMonthStart = ref(0);
     const today = ref(date.getDate());
+
+    const clickDay = reactive([])
 
     const getFirstDayLastDate = (year, month) => {
       const firstDay = new Date(year, month - 1, 1).getDay(); // 이번 달 시작 요일
@@ -140,14 +143,16 @@ export default {
         monthLastDate,
         lastMonthLastDate
       );
-      console.log(
-        getMonthOfDays(monthFirstDay, monthLastDate, lastMonthLastDate)
-      );
     };
 
     onMounted(() => {
       calendarData();
     });
+
+    const calendarDay = (e) =>{
+      console.log(e.target.innerHTML)
+      
+    }
 
     return {
       days,
@@ -162,6 +167,8 @@ export default {
       nextMonthStart,
       getFirstDayLastDate,
       getMonthOfDays,
+      calendarDay,
+      clickDay
     };
   },
 };

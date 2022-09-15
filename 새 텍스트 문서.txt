@@ -3,6 +3,7 @@
 좋아하는 태그 선택 창 태그 선택시 CSS변경된 것 보이게 할 것
 toggle버튼 다른 곳 클릭했을 때 닫히려면 일일이 지정해야 하나?
 이미지 FormData가 안받아짐
+CKEditor
 
 https://www.youtube.com/watch?v=YOZuSnzPq9g
 
