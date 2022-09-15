@@ -4,9 +4,8 @@
       <span class="home-title">마이페이지</span>
     </div>
   </div>
-  <div class="d-flex justify-content-between" style="width: 100%">
-    <!-- <EventCalendar /> -->
-    <div class="d-flex">
+  <div class="w-100 d-flex justify-content-between">
+    <div class="d-flex w-100">
       <MyCalender class="mr-3" />
       <TodoForm />
     </div>
@@ -65,7 +64,6 @@
 import TodoForm from "@/pages/todos/IndexPage.vue";
 import MyCalender from "@/components/MyCalender.vue";
 import { reactive } from "@vue/reactivity";
-// import EventCalendar from '@/components/EventCalendar.vue';
 
 export default {
   setup() {

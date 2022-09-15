@@ -1,50 +1,50 @@
 <template>
-  <div class="d-flex flex-column p-0 m-0">
-    <div>
-      <span>7월 30일 오늘의 할 일</span>
-      <div class="d-flex mb-3">
-        <h2>To-Do List</h2>
-      </div>
-      <div clss="d-flex">
-        <input
-          class="form-control"
-          type="text"
-          v-model="searchText"
-          placeholder="Search"
-          @keyup.enter="searchTodo"
-        />
+  <div class="w-30 d-flex flex-column flex-wrap p-0 m-0">
+    <div class="backgrondBox p-4">
+      <div class="d-flex flex-column">
+        <div class="pb-3">
+          <div class="todayTitle">
+            7월 30일 <span class="purple-color">오늘의 할 일</span>
+          </div>
+        </div>
         <button class="btn btn-primary" @click="moveToCreatePage">
           Create Todo
         </button>
+        <TodoList
+          :todos="todos"
+          @toggle-todo="toggleTodo"
+          @delete-todo="deleteTodo"
+        />
+        <!-- <div clss="d-flex">
+          <hr />
+          <input
+            class="form-control"
+            type="text"
+            v-model="searchText"
+            placeholder="Search"
+            @keyup.enter="searchTodo"
+          />
+        </div> -->
+      </div>
+      <!-- enter쳤을 때 이벤트발생 -->
+      <!-- 자식 컴포넌트 생성 -->
+      <!-- 자식 컴포넌트 emit안의 add-todo를 가져옴 -->
+      <!-- <TodoSimpleForm @add-todo="addTodo" /> -->
+      <div style="color: red">{{ error }}</div>
+
+      <div v-if="!todos.length">There is nothing to display</div>
+      <hr />
+      <!-- 페이지네이션vue에서 props 받아오고 getTodos함수를 실행 -->
+      <!-- v-if를 통해 페이지에 뭐가 있을때만 보이게 -->
+      <div class="d-flex justify-content-center">
+        <Pagenation
+          v-if="todos.length"
+          :numberOfPages="numberOfPages"
+          :currentPage="currentPage"
+          @click="getTodos"
+        />
       </div>
     </div>
-    <!-- enter쳤을 때 이벤트발생 -->
-    <hr />
-    <!-- 자식 컴포넌트 생성 -->
-    <!-- 자식 컴포넌트 emit안의 add-todo를 가져옴 -->
-    <!-- <TodoSimpleForm @add-todo="addTodo" /> -->
-    <div style="color: red">{{ error }}</div>
-
-    <div v-if="!todos.length">There is nothing to display</div>
-    <!-- {{ todos }} -->
-    <!-- 테두리 만들기, margin 2 -->
-    <!-- ref에 리터럴객체로 넣은걸 받음 -->
-
-    <!-- 부모에서 자식으로 보내기 (props)-->
-    <TodoList
-      :todos="todos"
-      @toggle-todo="toggleTodo"
-      @delete-todo="deleteTodo"
-    />
-    <hr />
-    <!-- 페이지네이션vue에서 props 받아오고 getTodos함수를 실행 -->
-    <!-- v-if를 통해 페이지에 뭐가 있을때만 보이게 -->
-    <Pagenation
-      v-if="todos.length"
-      :numberOfPages="numberOfPages"
-      :currentPage="currentPage"
-      @click="getTodos"
-    />
   </div>
 </template>
 
@@ -247,9 +247,12 @@ export default {
 };
 </script>
 
-<style>
-.todo {
-  color: gray;
-  text-decoration: line-through;
-}
+<style lang="sass" scoped>
+.todo
+  color: gray
+  text-decoration: line-through
+
+.todayTitle,
+.purple-color
+  font-weight: 500
 </style>

@@ -1,39 +1,50 @@
 <template>
-  <section class="purple-box section d-flex align-items-center pl-5 pr-5">
+  <section
+    class="w-70 purple-box section d-flex justify-content-center align-items-center pl-5 pr-5"
+  >
     <div class="calendar">
       <div class="container d-flex flex-column">
-        <h2 class="subtitle has-text-centered d-flex justify-content-center mb-3">
+        <h2 class="subtitle d-flex justify-content-center mb-3">
           <button
             class="button bi bi-caret-left-fill mr-4"
             @click="calendarData(-1)"
-          >
-          </button>
+          ></button>
           {{ year }}년 {{ month }}월
           <button
-            class="button bi bi-caret-right-fill is-outlined ml-4"
+            class="button bi bi-caret-right-fill ml-4"
             @click="calendarData(1)"
-          >
-          </button>
+          ></button>
         </h2>
-        <table class="table has-text-centered is-fullwidth">
+        <table class="table">
           <thead>
             <th v-for="day in days" :key="day">{{ day }}</th>
           </thead>
           <tbody>
             <tr v-for="(date, idx) in dates" :key="idx">
               <td
-              @click="calendarDay"
+                @click="calendarDay"
                 v-for="(day, secondIdx) in date"
                 :key="secondIdx"
-                :class="{ textPrevious: idx === 0 && day >= lastMonthStart,
-              textNext: dates.length - 1 === idx && nextMonthStart > day,
-              textToday: day === today && month === currentMonth && year === currentYear,
-              }"
+                :class="{
+                  textPrevious: idx === 0 && day >= lastMonthStart,
+                  textNext: dates.length - 1 === idx && nextMonthStart > day,
+                  textToday:
+                    day === today &&
+                    month === currentMonth &&
+                    year === currentYear,
+                }"
               >
-                <button style="width: 100%"
-                :class="{ 
-                textBlue: secondIdx === 6,
-                textRed: secondIdx === 0 }">
+                <button
+                  style="width: 100%"
+                  :class="{
+                    textToday:
+                      day === today &&
+                      month === currentMonth &&
+                      year === currentYear,
+                    textBlue: secondIdx === 6,
+                    textRed: secondIdx === 0,
+                  }"
+                >
                   {{ day }}
                 </button>
               </td>
@@ -62,7 +73,7 @@ export default {
     const nextMonthStart = ref(0);
     const today = ref(date.getDate());
 
-    const clickDay = reactive([])
+    const clickDay = reactive([]);
 
     const getFirstDayLastDate = (year, month) => {
       const firstDay = new Date(year, month - 1, 1).getDay(); // 이번 달 시작 요일
@@ -147,10 +158,9 @@ export default {
       calendarData();
     });
 
-    const calendarDay = (e) =>{
-      console.log(e.target.innerHTML)
-      
-    }
+    const calendarDay = (e) => {
+      console.log(e.target.innerHTML);
+    };
 
     return {
       days,
@@ -166,17 +176,21 @@ export default {
       getFirstDayLastDate,
       getMonthOfDays,
       calendarDay,
-      clickDay
+      clickDay,
     };
   },
 };
 </script>
 
 <style lang="sass" scoped>
+td,
+th
+  border: none
+
 .calendar
   padding-top: 70px
   padding-bottom: 70px
-  
+
 button
   background: none
   border: none
@@ -195,13 +209,18 @@ button
   opacity: 40%
 
 .textToday
-  font-weight: 700
+  font-weight: 500
+  color: white
+  background-color: #AE6FFF
 
 .textBlue
   color: #346BF9
 
 .textRed
   color: #FF4040
+
+.sunday
+  background: red
 
 .subtitle
   font-size: 20px
