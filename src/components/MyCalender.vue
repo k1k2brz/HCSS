@@ -1,48 +1,46 @@
 <template>
   <section class="purple-box section d-flex align-items-center pl-5 pr-5">
-    <div class="container d-flex flex-column">
-      <h2 class="subtitle has-text-centered d-flex justify-content-center mb-3">
-        <button
-          class="button is-small is-primary is-outlined mr-5"
-          @click="calendarData(-1)"
-        >
-          &lt;
-        </button>
-        {{ year }}년 {{ month }}월
-        <button
-          class="button is-small is-primary is-outlined ml-5"
-          @click="calendarData(1)"
-        >
-          &gt;
-        </button>
-      </h2>
-      <table class="table has-text-centered is-fullwidth">
-        <thead>
-          <th v-for="day in days" :key="day">{{ day }}</th>
-        </thead>
-        <tbody>
-          <tr v-for="(date, idx) in dates" :key="idx">
-            <td
-            @click="calendarDay"
-              v-for="(day, secondIdx) in date"
-              :key="secondIdx"
-              :class="{
-                'has-text-info-dark': idx === 0 && day >= lastMonthStart,
-                'has-text-danger':
-                  dates.length - 1 === idx && nextMonthStart > day,
-                'has-text-primary':
-                  day === today &&
-                  month === currentMonth &&
-                  year === currentYear,
+    <div class="calendar">
+      <div class="container d-flex flex-column">
+        <h2 class="subtitle has-text-centered d-flex justify-content-center mb-3">
+          <button
+            class="button bi bi-caret-left-fill mr-4"
+            @click="calendarData(-1)"
+          >
+          </button>
+          {{ year }}년 {{ month }}월
+          <button
+            class="button bi bi-caret-right-fill is-outlined ml-4"
+            @click="calendarData(1)"
+          >
+          </button>
+        </h2>
+        <table class="table has-text-centered is-fullwidth">
+          <thead>
+            <th v-for="day in days" :key="day">{{ day }}</th>
+          </thead>
+          <tbody>
+            <tr v-for="(date, idx) in dates" :key="idx">
+              <td
+              @click="calendarDay"
+                v-for="(day, secondIdx) in date"
+                :key="secondIdx"
+                :class="{ textPrevious: idx === 0 && day >= lastMonthStart,
+              textNext: dates.length - 1 === idx && nextMonthStart > day,
+              textToday: day === today && month === currentMonth && year === currentYear,
               }"
-            >
-              <button style="width: 100%">
-                {{ day }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              >
+                <button style="width: 100%"
+                :class="{ 
+                textBlue: secondIdx === 6,
+                textRed: secondIdx === 0 }">
+                  {{ day }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 </template>
@@ -175,10 +173,37 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.calendar
+  padding-top: 70px
+  padding-bottom: 70px
+  
 button
   background: none
   border: none
 
+.bi
+  font-size: 20px
+  color: pink
+
 .purple-box
   border-radius: 10px
+
+.textPrevious
+  opacity: 40%
+
+.textNext
+  opacity: 40%
+
+.textToday
+  font-weight: 700
+
+.textBlue
+  color: #346BF9
+
+.textRed
+  color: #FF4040
+
+.subtitle
+  font-size: 20px
+  font-weight: 700
 </style>

@@ -30,7 +30,8 @@
             <div class="dropdown-trigger">
               <button class="button nav-menu-circle d-flex justify-content-center align-items-center"
                 @click.stop="dropdown.active.value = !dropdown.active.value">
-                  더보기
+                <div v-if="dropdown.active.value == false" class="bi bi-caret-left-fill"></div>
+                <div v-if="dropdown.active.value == true" class="bi bi-caret-down-fill"></div>
               </button>
             </div>
             <div class="dropdown-menu" role="filter">
@@ -41,10 +42,10 @@
           <div v-if="dropdown.active.value" @blur="close" class="position-relative menu-container">
             <div class="position-absolute menu-box">
               <div class="pl-2 pr-2 pt-3 pb-3 d-flex flex-column gap-3">
-                <div class="p-3 grey-bg d-flex flex-column">
-                  <span>현재 로그인 계정</span>
-                  <span>{{ me.id }}</span>
-                </div>
+                <button class="p-3 grey-bg d-flex flex-column">
+                  <span @click="myPage">현재 로그인된 계정</span>
+                  <span class="mailId">{{ me.id }}</span>
+                </button>
                 <div class="d-flex flex-column ml-2">
                   <a href="#" @click="myPage" class="nav-link menu-hover menu-btn">마이페이지</a>
                   <router-link class="menu-hover menu-btn nav-link" :to="{ name: 'ManagerPage' }">관리자페이지</router-link>
@@ -75,6 +76,7 @@ export default defineComponent({
     const clickOuter = ref("");
     const dropdown = {
       active: ref(false),
+      caret: ref(false),
       close: () => {
         dropdown.active.value = false
       }
@@ -82,7 +84,7 @@ export default defineComponent({
 
     const navMenuBtn = () => {
       dropdown.active.value = !dropdown.active.value
-      console.log(dropdown.active.value)
+      dropdown.caret.value = !dropdown.caret.value
     };
 
     function close() {
@@ -91,12 +93,10 @@ export default defineComponent({
 
     onBeforeUnmount(() => {
       document.removeEventListener('click', dropdown.close)
-      console.log("remove" + dropdown.close)
     })
 
     onMounted(() => {
       document.addEventListener('click', dropdown.close)
-      console.log("add" + dropdown.close)
     })
 
     function loginCheck() {
@@ -126,8 +126,6 @@ export default defineComponent({
       router.push({
         name: "MyPage",
       });
-      store.state.nav.navToggle = false;
-      store.state.nav.navMenuicon = true;
     };
 
     const onLogout = () => {
@@ -171,7 +169,10 @@ export default defineComponent({
 
 <style lang="sass" scoped>
 .navbar
-  padding: 0 12px
+  padding: 0 14px
+
+.mailId
+  font-size: 12px
 
 .navbar-brand
   font-weight: 700
@@ -179,10 +180,10 @@ export default defineComponent({
 .nav-menu-circle
   background-color: #FFDCDC
   border: none
-  width: 60px
-  height: 30px
+  width: 25px
+  height: 25px
   padding: 10px
-  white-space: nowrap
+  border-radius: 50%
 
 .menu-container
   top: 25px
@@ -195,6 +196,8 @@ export default defineComponent({
 .grey-bg
   background-color: lightgrey
   border-radius: 15px
+  width: 160px
+  border: none
 
 .menu-btn
   border: none
