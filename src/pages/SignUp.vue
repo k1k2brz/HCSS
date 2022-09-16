@@ -54,7 +54,7 @@
               Email을 입력해주세요.
             </div>
           </div>
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <input
               type="text"
               v-model="info.certify"
@@ -68,7 +68,7 @@
             <div id="emailHelp" class="form-text">
               10분 이내 메일이 도착하지 않으면 다시 시도해주세요.
             </div>
-          </div>
+          </div> -->
           <div
             class="d-flex justify-content-center align-items-center flex-column"
           >
@@ -114,12 +114,13 @@ export default {
     const repassError = ref(false);
     const emailError = ref(false);
     const secuError = ref(false);
+    // ref로 focus()할 것 
     let info = reactive({
       id: "",
       pass: "",
       repass: "",
       email: "",
-      certify: "",
+      // certify: "",
     });
 
     const onSubmitForm = async () => {
@@ -143,10 +144,11 @@ export default {
         return;
       }
       router.push({
-        name: "SelectGoodTag",
+        name: "Main",
       });
       try {
         await store.dispatch("users/signUp", {
+          // Entity와 맞출 것
           id: info.id,
           pass: info.pass,
           email: info.email,
@@ -156,7 +158,7 @@ export default {
         repassError.value = false;
         emailError.value = false;
         secuError.value = false;
-        store.state.me = true;
+        // store.state.me = true;
       } catch (err) {
         console.log(err);
       }

@@ -11,7 +11,7 @@
       <ul class="navbar-nav">
         <li
           v-if="!store.state.users.me"
-          class="nav-item active d-flex align-items-center"
+          class="nav-item active d-flex align-items-center flex-wrap"
         >
           <router-link class="nav-link mr-3" :to="{ name: 'Login' }"
             >로그인</router-link
@@ -34,7 +34,7 @@
               aria-label="Text input with segmented dropdown button"
             />
           </div>
-          <div class="d-flex justify-content-center align-items-center">
+          <div class="d-flex justify-content-center align-items-center flex-wrap">
             <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
               >홈</router-link
             >

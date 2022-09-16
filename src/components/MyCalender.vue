@@ -160,6 +160,8 @@ export default {
 
     const calendarDay = (e) => {
       console.log(e.target.innerHTML);
+      // 달력 날짜를 받는다.
+      // 이 날 작성된 다이어리를 받아올 수 있도록
     };
 
     return {

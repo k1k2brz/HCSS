@@ -4,40 +4,44 @@
       <span class="home-title">내 북마크</span>
     </div>
     <div class="d-flex justify-content-between">
-      <!-- <Modal /> -->
       <div class="d-flex justify-content-center align-items-center">
         <button
           class="new-folder"
           data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
+          data-bs-target="#bookmarkModal"
         >
           + 새 북마크 폴더
         </button>
-        <div v-if="showModal" class="modal fade" id="exampleModal">
-          <div class="modal-dialog">
+        <div v-if="showModal" class="modal fade" id="bookmarkModal">
+          <div class="modal-dialog" >
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">새 북마크 추가</h5>
-                <button @click="btnCancel" class="btn-close"></button>
+                <button
+                @click="bmCancel"
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                >
+                </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form onsubmit="return false" >
                   <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"
                       >폴더명</label
                     >
                     <input
-                      @keyup.enter="addBookmark"
                       v-model="bookmarkValue"
                       type="text"
                       class="form-control"
-                      id="recipient-name"
                     />
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button
+                @click="bmCancel"
                   type="button"
                   class="btn btn-secondary"
                   data-bs-dismiss="modal"
@@ -75,7 +79,7 @@
               <img src="@/assets/folder.png" alt="이미지 없음" />
             </div>
             <span class="bold">{{ bmTag }}</span>
-            <button @click="onRemoveBookmark" class="bi bi-x-lg"></button>
+            <button @click="onRemoveBookmark($event)" class="bi bi-x-lg"></button>
           </div>
         </div>
       </div>
@@ -111,6 +115,7 @@
 </template>
 
 <script>
+// import { useRouter } from "vue-router";
 import { reactive, ref, watch } from "vue";
 // import Modal from "@/pages/bookmark/BmModal.vue";
 
@@ -119,6 +124,7 @@ export default {
     // Modal,
   },
   setup() {
+    // const router = useRouter();
     const bmExist = ref(false);
     const bookmarkValue = ref("");
     let bmTags = reactive([]);
@@ -133,21 +139,32 @@ export default {
       }
     });
 
+    // VUEX로 옮기기 - 그냥 옮기자
     const addBookmark = () => {
+      // const id = Date.now()
       if (!bookmarkValue.value == "") {
         bmTags.push(bookmarkValue.value);
         bookmarkValue.value = "";
+        // console.log(id)
+        // router.go(0)
       }
     };
 
     const btnCancel = () => {
       if (showModal.value == true) {
         showModal.value = false;
+        console.log(showModal.value)
       }
-      showModal.value = true;
     };
 
+    const bmCancel = () => {
+      bookmarkValue.value = "";
+    }
+
     const onRemoveBookmark = (index) => {
+      // const index = state.mainPosts.findIndex((v) => v.id === payload.id)
+      console.log(bmTags)
+      console.log(index.target)
       bmTags.splice(index, 1);
     };
 
@@ -159,6 +176,7 @@ export default {
       bookmarkValue,
       bmTags,
       onRemoveBookmark,
+      bmCancel,
     };
   },
 };

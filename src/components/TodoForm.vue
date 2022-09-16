@@ -44,6 +44,8 @@
         <div class="form-group">
           <label>Body</label>
           <textarea
+          style="resize: none;"
+          placeholder="내용을 입력해주세요."
             v-model="todo.body"
             class="form-control"
             id=""
@@ -59,7 +61,7 @@
     <!-- lodash다운 이후 할 것 (lodash는 배열 안의 객체들의 값을 핸들링할 때 유용함.) -->
     <button type="submit" class="btn btn-primary" :disabled="!todoUpdated">
       <!-- editing일 땐 Update로 아니면 Create로 버튼 텍스트 출력 -->
-      {{ editing ? "Update" : "Create" }}
+      {{ editing ? "수정하기" : "작성하기" }}
     </button>
     <!-- 캔슬 누르면 todos로 이동하도록 -->
     <button class="btn btn-outline-dark ml-2" @click="moveToTodoListPage">
@@ -147,7 +149,7 @@ export default {
 
     const moveToTodoListPage = () => {
       router.push({
-        name: "Todos",
+        name: "MyPage",
       });
     };
 
@@ -196,7 +198,7 @@ export default {
         // 생성할 때면 TodoList로 이동
         if (!props.editing) {
           router.push({
-            name: "Todos",
+            name: "MyPage",
           });
         }
       } catch (error) {

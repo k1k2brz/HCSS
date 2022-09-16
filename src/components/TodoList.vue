@@ -39,7 +39,9 @@
   </List>
   <!-- </div> -->
   <teleport to="#modal">
-    <Modal v-if="showModal" @close="closeModal" @delete="deleteTodo" />
+    <div class="backgroundBox">
+      <Modal v-if="showModal" @close="closeModal" @delete="deleteTodo" />
+    </div>
   </teleport>
 </template>
 

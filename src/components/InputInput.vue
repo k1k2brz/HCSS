@@ -2,7 +2,7 @@
   <div class="form-group">
     <label>{{ label }}</label>
     <!-- 컴포넌트를 옮기면서 더이상 v-model사용을 못하기 때문에 :value사용 -->
-    <input :value="subject" @input="onInput" type="text" class="form-control" />
+    <input :value="subject" @input="onInput" type="text" class="form-control" placeholder="제목을 입력해주세요." />
     <!-- subject 공백시 에러 메세지 띄우는 div -->
     <div v-if="error" style="color: red">
       {{ error }}

@@ -8,7 +8,7 @@
           </div>
         </div>
         <button class="btn btn-primary" @click="moveToCreatePage">
-          Create Todo
+          Todo list 추가하기
         </button>
         <TodoList
           :todos="todos"

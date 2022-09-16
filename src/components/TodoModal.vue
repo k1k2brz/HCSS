@@ -1,7 +1,7 @@
 <template>
   <div class="modal-wrapper">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="backgroundBox d-flex gap-3 modal-content">
         <div class="modal-header">
           <!-- modal이나 button 등 props로 보낼 수 없는 경우 slot을 사용 -->
           <h5 class="modal-title">
@@ -43,14 +43,18 @@ export default {
 };
 </script>
 
-<style scoped>
-.modal-wrapper {
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
+<style lang="sass" scoped>
+.backgroundBox
+  background-color: white
+  padding: 30px
+  border-radius: 15px
+  
+.modal-wrapper
+  position: fixed
+  z-index: 1050
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-color: rgba(0, 0, 0, 0.5)
 </style>

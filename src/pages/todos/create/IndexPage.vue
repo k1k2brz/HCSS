@@ -1,5 +1,9 @@
 <template>
-  <h1>Create Page</h1>
+  <div class="top-margin">
+    <div class="mb-4">
+      <span class="home-title">Todo list</span>
+    </div>
+  </div>
   <TodoForm />
 </template>
 

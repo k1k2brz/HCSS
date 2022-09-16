@@ -9,7 +9,7 @@
           class="page-link"
           @click="onClick(currentPage - 1)"
         >
-          Previous
+        <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       <!-- numberOfPages만큼 {{ page }}에 하나씩 출력 -->
@@ -30,7 +30,9 @@
           style="cursor: pointer"
           class="page-link"
           @click="onClick(currentPage + 1)"
-          >Next</a
+          >
+          <span aria-hidden="true">&raquo;</span>
+          </a
         >
       </li>
     </ul>
@@ -57,6 +59,7 @@ export default {
   // emits의 이름은 click으로
   emits: ["click"],
   setup() {
+    const limit = 5
     const { emit } = getCurrentInstance();
     const onClick = (page) => {
       // emit을 위로 올려주는 작업
@@ -64,6 +67,7 @@ export default {
     };
     return {
       onClick,
+      limit,
     };
   },
 };

@@ -3,11 +3,12 @@
     class="container container_default d-flex justify-content-center align-items-center p-0 m-0"
   >
     <div class="q-pa-md">
-      <div class="backgrondBox">
+      <div class="backgrondBox" >
         <div>
           <div class="d-flex justify-content-center mb-3">
             <h1 class="home-title mb-4">
-              <span class="home-title purple-color">관심있는 태그</span>를 선택
+              <span class="home-title purple-color"
+              >관심있는 태그</span>를 선택
               해주세요(최소 3개 이상)
             </h1>
           </div>
@@ -16,6 +17,8 @@
               class="rows d-flex mb-1 justify-content-center align-items-center"
               v-for="(favTag, index) in favTags"
               :key="'favTag' + index"
+              :data-index="(index)"
+              @click="clickBg($event)"
             >
               <button
                 @click="tagSelectBtn"
@@ -68,11 +71,19 @@ export default {
       });
     };
 
+    const clickBg = (e) => {
+      e.target.style.borderRadius = '15px'
+      if (e.target.style.background === 'lightgrey' || e.target.style.background === '') {
+        e.target.style.background = '#AE6FFF'
+      } else if ( e.target.style.background === 'rgb(174, 111, 255)') {
+        e.target.style.background = 'lightgrey'
+      }
+    }
+
     // 선택된 데이터 담기
     let tagSelection = reactive([]);
     // 태그 선택 개수
     const clickTag = ref(false);
-    // 배열 만들고 대응하는 데이터 하나씩 넣고 빼고 하는식으로 개수 체크해서 x개선택 뜨게 할 것
     const tagSelectBtn = (e) => {
       // 배열에 같은 값이 있으면 배열에서 빼버리게
       if (tagSelection.indexOf(e.target.innerHTML) === -1) {
@@ -85,7 +96,6 @@ export default {
           }
         }
       }
-      console.log(tagSelection);
     };
     const favTags = ref([
       "운동",
@@ -107,12 +117,17 @@ export default {
       tagSelection,
       tagSelectRouter,
       me,
+      clickBg
     };
   },
 };
 </script>
 
 <style lang="sass" scoped>
+.checkTag
+  background: red
+  color: red
+  
 .btn
   width: 100%
   background-color: #AE6FFF
