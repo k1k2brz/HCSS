@@ -26,12 +26,12 @@
                 v-for="(day, secondIdx) in date"
                 :key="secondIdx"
                 :class="{
-                  textPrevious: idx === 0 && day >= lastMonthStart,
-                  textNext: dates.length - 1 === idx && nextMonthStart > day,
                   textToday:
                     day === today &&
                     month === currentMonth &&
                     year === currentYear,
+                  textPrevious: idx === 0 && day >= lastMonthStart,
+                  textNext: dates.length - 1 === idx && nextMonthStart > day,
                 }"
               >
                 <button
@@ -212,7 +212,7 @@ button
 
 .textToday
   font-weight: 500
-  color: white
+  color: white !important
   background-color: #AE6FFF
 
 .textBlue

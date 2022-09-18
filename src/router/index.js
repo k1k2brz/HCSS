@@ -31,6 +31,8 @@ import Usermanagement from "../pages/managerpage/UserManagement.vue";
 import Editpost from "../components/EditPost.vue";
 import Mydiary from "../pages/mypage/MyDiary.vue";
 import CkEditor from "../pages/CkEditor.vue";
+import EditTag from "../pages/findtag/EditTags.vue";
+import UserBookmark from "../pages/bookmark/UserBookmark.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -193,6 +195,16 @@ const router = createRouter({
       path: "/pages/write",
       name: "CkEditor",
       component: CkEditor,
+    },
+    {
+      path: "/pages/edittags",
+      name: "EditTag",
+      component: EditTag,
+    },
+    {
+      path: "/pages/BookMark",
+      name: "UserBookmark",
+      component: UserBookmark,
     },
   ],
 });

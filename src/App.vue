@@ -3,7 +3,7 @@
   <!-- <div class="bg"> -->
   <div class="container absolute bg100">
     <div class="relative">
-      <Navbar class="fixed-top" />
+      <Navbar class="fixed-top backgroundColor" />
       <!-- index.js에서 설정한 home component가 여기에 들어온다 -->
       <!-- 설정에 따라 Home컴포 todos컴포가 들어간다는 뜻 -->
       <router-view />
@@ -30,6 +30,9 @@ export default {
 </script>
 
 <style lang="sass">
+.backgroundColor
+  background-color: white
+
 .bg100
   width: 100%
 

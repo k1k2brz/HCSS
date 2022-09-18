@@ -34,7 +34,9 @@
               aria-label="Text input with segmented dropdown button"
             />
           </div>
-          <div class="d-flex justify-content-center align-items-center flex-wrap">
+          <div
+            class="d-flex justify-content-center align-items-center flex-wrap"
+          >
             <router-link class="nav-link mr-3" :to="{ name: 'Main' }"
               >홈</router-link
             >
@@ -94,7 +96,11 @@
                     :to="{ name: 'ManagerPage' }"
                     >관리자페이지</router-link
                   >
-                  <button class="menu-btn">내 태그 설정</button>
+                  <router-link
+                    class="menu-hover menu-btn nav-link"
+                    :to="{ name: 'EditTag' }"
+                    >내 태그 설정</router-link
+                  >
                   <router-link
                     class="menu-hover menu-btn nav-link"
                     :to="{ name: 'UserEditPass' }"
@@ -175,13 +181,13 @@ export default defineComponent({
     });
 
     const logoBtn = () => {
-      if (store.state.users.me == true) {
-        router.push({
-          name: "Main",
-        });
-      } else if (store.state.users.me == false) {
+      if (store.state.users.me == false || store.state.users.me == null) {
         router.push({
           name: "Home",
+        });
+      } else {
+        router.push({
+          name: "Main",
         });
       }
     };

@@ -1,22 +1,29 @@
 <template>
   <div>
     <input
-      v-if="clickTA"
       v-model="myWriteTitle"
+      @click="clickTextarea"
       type="text"
       class="myWriteTitle none form-control"
       placeholder="제목을 입력하세요."
     />
     <textarea
+      v-if="clickTA"
       v-model="myWriteContent"
       @input="autoResize"
-      @click="clickTextarea"
       class="myWriteContent form-control"
       placeholder="오늘의 다이어리를 작성해 보세요!"
       id="floatingTextarea"
     />
-    <button v-if="clickTA" @click="publicPrivacy" class="purple-color mb-3">
+    <button
+      v-if="privacyPermit"
+      @click="publicPrivacy"
+      class="purple-color mb-3"
+    >
       모든 사람이 다이어리를 읽을 수 있습니다.
+    </button>
+    <button v-else @click="publicPrivacy" class="purple-color mb-3">
+      나만이 다이어리를 읽을 수 있습니다.
     </button>
     <div v-if="pp" class="d-flex position-absolute">
       <div
@@ -81,8 +88,14 @@
       <div class="icon"></div>
       <div class="icon"></div>
     </div>
-    <button v-if="WCDisabled" @click="writeCompletedBtn" class="btn-regular">
-      <!-- :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1" -->
+    <button
+      @click="writeCompletedBtn"
+      class="btn-regular"
+      :class="{
+        btnDisabled: myWriteTitle.length < 1 || myWriteContent.length < 1,
+      }"
+      :disabled="myWriteTitle.length < 1 || myWriteContent.length < 1"
+    >
       작성완료
     </button>
   </div>
@@ -90,12 +103,13 @@
 
 <script>
 import { ref } from "@vue/reactivity";
-// import router from "@/router";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     // Comments, Images, id(고유번호), createdAt 등 어케 받을건지 백엔드와 상의
+    const router = useRouter();
     const store = useStore();
     const pp = ref(false);
     const diaryPrivacyCheck = ref(true);
@@ -109,6 +123,7 @@ export default {
     const selectedFiles = ref(null);
     const imgInput = ref(null);
     const gifInput = ref(null);
+    const privacyPermit = ref(true);
 
     // intersection observe로 무한 스크롤링
 
@@ -139,10 +154,12 @@ export default {
         diaryPrivacyCheck.value = true;
         commentDisable.value = false;
         commentPrivacyCheck.value = true;
+        privacyPermit.value = true;
       } else if (diaryPrivacyCheck.value == true) {
         diaryPrivacyCheck.value = false;
         commentDisable.value = true;
         commentPrivacyCheck.value = false;
+        privacyPermit.value = false;
       }
     };
 
@@ -163,21 +180,19 @@ export default {
     // time: today.getMonth(),
 
     const writeCompletedBtn = async () => {
-      // if (myWriteTitle.value.length < 1) {
-      //   WCDisabled.value = true;
-      //   console.log(WCDisabled.value);
-      // } else if (myWriteTitle.value.length >= 1) {
-      //   WCDisabled.value = false;
-      // }
       store.dispatch("posts/add", {
         myWriteTitle: myWriteTitle.value,
         myWriteContent: myWriteContent.value,
         Comments: [],
         Images: [],
+        privacyCheck: diaryPrivacyCheck.value,
+        commentPermit: commentPrivacyCheck.value,
         id: Date.now(),
         createdAt: Date.now(),
       });
-      // router.push("/pages/diarywrite");
+      router.push({
+        name: "Main",
+      });
       try {
         myWriteTitle.value = "";
         myWriteContent.value = "";
@@ -233,6 +248,7 @@ export default {
       gifInput,
       getTimeFromJavaDate,
       today,
+      privacyPermit,
     };
   },
 };
@@ -298,6 +314,10 @@ a
   font-weight: 500
   border: none
   background: none
+
+.btnDisabled
+  background-color: lightgrey
+  opacity: 80%
 
 .box
   width: 30px

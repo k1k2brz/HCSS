@@ -25,7 +25,7 @@
             v-model="tagValue"
             @keyup.enter="addTag"
             type="text"
-            class="form-control"
+            class="form-control mr-1"
             placeholder="태그 검색"
           />
           <button
@@ -34,7 +34,7 @@
             type="button"
             id="button-addon2"
           >
-            +
+            <i class="bi bi-plus-lg"></i>
           </button>
         </div>
       </div>
@@ -69,6 +69,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.btn-outline-secondary
+  &:hover
+    background-color: #AE6FFF
+    border: 1px solid #AE6FFF
+
 .tagBox
     border-radius: 5px
     min-height: 400px

@@ -13,25 +13,25 @@
           + 새 북마크 폴더
         </button>
         <div v-if="showModal" class="modal fade" id="bookmarkModal">
-          <div class="modal-dialog" >
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">새 북마크 추가</h5>
                 <button
-                @click="bmCancel"
+                  @click="bmCancel"
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
-                >
-                </button>
+                ></button>
               </div>
               <div class="modal-body">
-                <form onsubmit="return false" >
+                <form onsubmit="return false">
                   <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"
                       >폴더명</label
                     >
                     <input
+                      maxlength="20"
                       v-model="bookmarkValue"
                       type="text"
                       class="form-control"
@@ -41,7 +41,7 @@
               </div>
               <div class="modal-footer">
                 <button
-                @click="bmCancel"
+                  @click="bmCancel"
                   type="button"
                   class="btn btn-secondary"
                   data-bs-dismiss="modal"
@@ -75,11 +75,19 @@
           :key="'bmTag' + index"
         >
           <div class="folder-box">
-            <div class="folder-stroke p-4 mb-3">
+            <button
+              @click="onClickFolder"
+              class="btnFolder folder-stroke p-4 mb-3"
+            >
               <img src="@/assets/folder.png" alt="이미지 없음" />
+            </button>
+            <div class="pl-2 pr-2">
+              <span class="bold">{{ bmTag }}</span>
             </div>
-            <span class="bold">{{ bmTag }}</span>
-            <button @click="onRemoveBookmark($event)" class="bi bi-x-lg"></button>
+            <button
+              @click="onRemoveBookmark(bmTag, index)"
+              class="bi bi-x-lg"
+            ></button>
           </div>
         </div>
       </div>
@@ -115,8 +123,8 @@
 </template>
 
 <script>
-// import { useRouter } from "vue-router";
-import { reactive, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { reactive, ref, watchEffect } from "vue";
 // import Modal from "@/pages/bookmark/BmModal.vue";
 
 export default {
@@ -124,14 +132,14 @@ export default {
     // Modal,
   },
   setup() {
-    // const router = useRouter();
+    const router = useRouter();
     const bmExist = ref(false);
     const bookmarkValue = ref("");
     let bmTags = reactive([]);
     const showModal = ref(true);
 
     // 북마크에 들어왔을 때 북마크가 존재하면 화면 바뀜
-    watch(() => {
+    watchEffect(() => {
       if (bmTags.length === 0) {
         bmExist.value = false;
       } else if (bmTags.length !== 0) {
@@ -141,31 +149,32 @@ export default {
 
     // VUEX로 옮기기 - 그냥 옮기자
     const addBookmark = () => {
-      // const id = Date.now()
       if (!bookmarkValue.value == "") {
         bmTags.push(bookmarkValue.value);
         bookmarkValue.value = "";
-        // console.log(id)
-        // router.go(0)
       }
     };
 
     const btnCancel = () => {
       if (showModal.value == true) {
         showModal.value = false;
-        console.log(showModal.value)
+        console.log(showModal.value);
       }
     };
 
     const bmCancel = () => {
       bookmarkValue.value = "";
-    }
+    };
 
-    const onRemoveBookmark = (index) => {
-      // const index = state.mainPosts.findIndex((v) => v.id === payload.id)
-      console.log(bmTags)
-      console.log(index.target)
+    const onRemoveBookmark = (bmTag, index) => {
+      console.log(bmTag);
       bmTags.splice(index, 1);
+    };
+
+    const onClickFolder = () => {
+      router.push({
+        name: "UserBookmark",
+      });
     };
 
     return {
@@ -177,12 +186,26 @@ export default {
       bmTags,
       onRemoveBookmark,
       bmCancel,
+      onClickFolder,
     };
   },
 };
 </script>
 
 <style lang="sass" scoped>
+.btnFolder
+  border: none
+  background: none
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
+  border-radius: 15px
+  &:hover
+    transition: all 0.1s linear
+    scale: 101%
+    box-shadow: rgba(102, 101, 101, 0.2) 0px 3px 10px 0px
+
+.folder-box
+  word-break: break-all
+
 .boundaryLine
     width: 1.5px
     height: 15px
@@ -191,8 +214,7 @@ export default {
 .folder-stroke
     // border-bottom: 0.5px solid grey
     // box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
-    border-radius: 15px
+
 
 img
     width: 100%

@@ -3,6 +3,9 @@
 CKEditor
 달력 클릭하면 날짜이동
 북마크 그냥 vuex로 옮길것
+마이페이지 레이아웃 좀 맞추기
+태그 수정 페이지 생성
+emailChange 에러먹음
 
 https://www.youtube.com/watch?v=YOZuSnzPq9g
 

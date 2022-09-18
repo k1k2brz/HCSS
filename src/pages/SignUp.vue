@@ -114,7 +114,7 @@ export default {
     const repassError = ref(false);
     const emailError = ref(false);
     const secuError = ref(false);
-    // ref로 focus()할 것 
+    // ref로 focus()할 것
     let info = reactive({
       id: "",
       pass: "",
@@ -144,7 +144,7 @@ export default {
         return;
       }
       router.push({
-        name: "Main",
+        name: "SelectGoodTag",
       });
       try {
         await store.dispatch("users/signUp", {

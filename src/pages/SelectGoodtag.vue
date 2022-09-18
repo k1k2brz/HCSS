@@ -3,12 +3,11 @@
     class="container container_default d-flex justify-content-center align-items-center p-0 m-0"
   >
     <div class="q-pa-md">
-      <div class="backgrondBox" >
+      <div class="backgrondBox">
         <div>
           <div class="d-flex justify-content-center mb-3">
             <h1 class="home-title mb-4">
-              <span class="home-title purple-color"
-              >관심있는 태그</span>를 선택
+              <span class="home-title purple-color">관심있는 태그</span>를 선택
               해주세요(최소 3개 이상)
             </h1>
           </div>
@@ -17,7 +16,7 @@
               class="rows d-flex mb-1 justify-content-center align-items-center"
               v-for="(favTag, index) in favTags"
               :key="'favTag' + index"
-              :data-index="(index)"
+              :data-index="index"
               @click="clickBg($event)"
             >
               <button
@@ -72,13 +71,18 @@ export default {
     };
 
     const clickBg = (e) => {
-      e.target.style.borderRadius = '15px'
-      if (e.target.style.background === 'lightgrey' || e.target.style.background === '') {
-        e.target.style.background = '#AE6FFF'
-      } else if ( e.target.style.background === 'rgb(174, 111, 255)') {
-        e.target.style.background = 'lightgrey'
+      e.target.style.borderRadius = "15px";
+      if (
+        e.target.style.background === "rgb(225, 232, 237)" ||
+        e.target.style.background === ""
+      ) {
+        e.target.style.background = "#AE6FFF";
+        e.target.style.color = "#fff";
+      } else if (e.target.style.background === "rgb(174, 111, 255)") {
+        e.target.style.background = "#E1E8ED";
+        e.target.style.color = "#000";
       }
-    }
+    };
 
     // 선택된 데이터 담기
     let tagSelection = reactive([]);
@@ -117,7 +121,7 @@ export default {
       tagSelection,
       tagSelectRouter,
       me,
-      clickBg
+      clickBg,
     };
   },
 };
@@ -127,7 +131,7 @@ export default {
 .checkTag
   background: red
   color: red
-  
+
 .btn
   width: 100%
   background-color: #AE6FFF
@@ -144,7 +148,7 @@ export default {
 
 .rows
   border: none
-  background-color: lightgrey
+  background-color: #E1E8ED
   height: 120px
   border-radius: 15px
   font-size: 22px
@@ -170,4 +174,6 @@ export default {
 .tagSelectBtn
   background: none
   border: none
+  font-size: 18px
+  font-weight: 500
 </style>
