@@ -1,3 +1,5 @@
+// import axios from "@/axios";
+
 export default {
   namespaced: true,
   state: {
@@ -24,6 +26,11 @@ export default {
   },
   actions: {
     signUp({ commit }, payload) {
+      // axios.post("http://localhost:3086/user", {
+      //   id: payload.id,
+      //   pw: payload.pw,
+      //   email: payload.email,
+      // })
       commit("setMe", payload);
     },
     favTags({ commit }, payload) {

@@ -7,7 +7,7 @@
             <h1 class="home-title mb-4">SIGN-UP</h1>
           </div>
           <div class="mb-3">
-            <input type="text" v-model="info.id" class="form-control" placeholder="아이디를 입력해주세요."
+            <input type="email" v-model="info.id" class="form-control" placeholder="아이디를 입력해주세요."
               aria-describedby="emailHelp" />
             <div v-show="idError" class="font14 mt-1 ml-2">
               Email이 올바르지 않습니다.
@@ -48,38 +48,17 @@
               10분 이내 메일이 도착하지 않으면 다시 시도해주세요.
             </div>
           </div> -->
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <select class="form-select" v-model="info.selectedItem" @change="change">
               <option selected disabled>질문을 선택해주세요.</option>
               <option v-for="each in info.items" :key="each" v-text="each" :value="each"></option>
             </select>
           </div>
           <div v-if="questionInput" class="mb-3">
-            <input v-model="info.answer" class="form-control" type="text" placeholder="질문을 입력해주세요." />
-            <div v-show="answerError" class="font14 mt-1 ml-2">
+            <input v-model="info.q2" class="form-control" type="text" />
+          </div>
+          <div v-show="questionError" class="font14 mt-1 ml-2">
               질문을 입력해주세요.
-            </div>
-          </div> -->
-
-          <div class="mb-3">
-            <input type="text" v-model="info.q1" class="form-control" placeholder="인상 깊게 읽은 책 이름은??" />
-            <div v-show="q1Error" class="font14 mt-1 ml-2">
-              답변이 올바르지 않습니다.
-            </div>
-          </div>
-          <div class="mb-3">
-            <input type="text" v-model="info.q2" class="form-control" placeholder="나의 보물 1호는?"
-              aria-describedby="emailHelp" />
-            <div v-show="q2Error" class="font14 mt-1 ml-2">
-              답변이 올바르지 않습니다.
-            </div>
-          </div>
-          <div class="mb-3">
-            <input type="text" v-model="info.q3" class="form-control" placeholder="기억에 남는 추억의 장소는?"
-              aria-describedby="emailHelp" />
-            <div v-show="q3Error" class="font14 mt-1 ml-2">
-              답변이 올바르지 않습니다.
-            </div>
           </div>
           <div class="d-flex justify-content-center align-items-center flex-column">
             <button type="submit" class="btn btn-primary">회원가입</button>
@@ -120,33 +99,37 @@ export default {
     const repassError = ref(false);
     const emailError = ref(false);
     const secuError = ref(false);
-    const q1Error = ref(false);
-    const q2Error = ref(false);
-    const q3Error = ref(false);
-    // const questionInput = ref(false);
-    // const answerError = ref(false);
+    const questionInput = ref(false);
+    const questionError = ref(false);
     // ref로 focus()할 것
     let info = reactive({
       id: "",
       pass: "",
       repass: "",
       email: "",
-      // selectedItem: '',
-      // answer: '',
-      q1: "",
-      q2: "",
-      q3: "",
+      q1: '',
+      q2: '',
       // certify: "",
-      // items: ['인상 깊게 읽은 책 이름은??', '나의 보물 1호는?', '기억에 남는 추억의 장소는?'],
+      items: ['인상 깊게 읽은 책 이름은??', '나의 보물 1호는?', '기억에 남는 추억의 장소는?'],
     });
 
-    // function change() {
-    //   if (info.selectedItem !== "") {
-    //     questionInput.value = true;
-    //   }
-    // }
+    function change() {
+      // if (info.selectedItem == '인상 깊게 읽은 책 이름은??') {
+      //   info.q1 = info.selectedItem
+      // } else if (info.selectedItem == '나의 보물 1호는?') {
+      //   info.q2 = info.selectedItem
+      // } else if (info.selectedItem == '기억에 남는 추억의 장소는?') {
+      //   info.q3 = info.selectedItem
+      // }
+      info.q1 = info.selectedItem
+      if (info.selectedItem !== "") {
+        questionInput.value = true;
+      }
+    }
 
     const onSubmitForm = async () => {
+      console.log(questionError.value)
+      console.log(info.q2)
       if (info.id === "") {
         idError.value = true;
         return;
@@ -165,18 +148,12 @@ export default {
       } else if (info.certify === "") {
         secuError.value = true;
         return;
-      } else if (info.q1 === "") {
-        q1Error.value = true
-        return;
       } else if (info.q2 === "") {
-        q2Error.value = true
-        return;
-      } else if (info.q3 === "") {
-        q3Error.value = true
-        return;
+        questionError.value = true;
+        console.log(info.q2)
       }
       router.push({
-        name: "Main",
+        name: "SelectGoodTag",
       });
       try {
         await store.dispatch("users/signUp", {
@@ -184,19 +161,15 @@ export default {
           id: info.id,
           pw: info.pass,
           email: info.email,
-          q1: info.q1,
+          q1: info.selectedItem,
           q2: info.q2,
-          q3: info.q3,
         });
         idError.value = false;
         passError.value = false;
         repassError.value = false;
         emailError.value = false;
         secuError.value = false;
-        q1Error.value = false;
-        q2Error.value = false;
-        q3Error.value = false;
-        // answerError.value = false;
+        questionError.value = false;
         // store.state.me = true;
       } catch (err) {
         console.log(err);
@@ -211,9 +184,9 @@ export default {
       repassError,
       emailError,
       secuError,
-      q1Error,
-      q2Error,
-      q3Error,
+      questionInput,
+      change,
+      questionError
     };
   },
   // 회원가입 하지 않은 사람만 접근
