@@ -52,13 +52,17 @@ export default {
       state.mainPosts.Comments = payload.content;
     },
     removeComment(state, payload) {
+      // 게시글 몇 번 인지
       const index = state.mainPosts.findIndex((v) => v.id === payload.id);
       console.log(index);
+      const index2 = state.mainPosts[index].Comments.includes((v) => v.id === payload.id);
+      console.log(state.mainPosts[index].Comments);
+      console.log(index2);
       // const index2 = state.mainPosts[index].Comments.findIndex(
       //   (v) => v.postId === payload.postId
       // );
       // console.log(index2);
-      state.mainPosts[index].Comments.splice(index - index, 1);
+      state.mainPosts[index].Comments.splice(index, 1);
     },
     // 가짜 데이터(아직 실제 데이터가 없으므로)
     loadPosts(state) {

@@ -35,7 +35,7 @@ import EditTag from "../pages/findtag/EditTags.vue";
 import UserBookmark from "../pages/bookmark/UserBookmark.vue";
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   // 하나의 객체가 하나의 route를 의미
   routes: [
     {
@@ -45,17 +45,17 @@ const router = createRouter({
     },
     // 뒤에 todos붙여주면 Todos파일로 가게 Path설정
     {
-      path: "/pages/login",
+      path: "/login",
       name: "Login",
       component: Login,
     },
     {
-      path: "/pages/signup",
+      path: "/signup",
       name: "Signup",
       component: Signup,
     },
     {
-      path: "/pages/idfind",
+      path: "/idfind",
       name: "IdFind",
       component: Idfind,
     },
@@ -77,107 +77,107 @@ const router = createRouter({
       component: Todo,
     },
     {
-      path: "/pages/mainpage",
+      path: "/mainpage",
       name: "Main",
       component: Mainpage,
     },
     {
-      path: "/pages/alarm",
+      path: "/alarm",
       name: "Alarm",
       component: Alarmmain,
     },
     {
-      path: "/pages/users/edit",
+      path: "/users/edit",
       name: "UserEdit",
       component: Useredit,
     },
     {
-      path: "/pages/users",
+      path: "/users/edit",
       name: "UserEditPass",
       component: Usereditpass,
     },
-    {
-      path: "/pages/mypage",
+{
+      path: "/mypage",
       name: "MyPage",
       component: Mypage,
     },
     {
-      path: "/pages/diarywrite",
+      path: "/diarywrite",
       name: "DiaryWrite",
       component: Diarywrite,
     },
     {
-      path: "/pages/BookMark",
+      path: "/BookMark",
       name: "BookMark",
       component: Bookmark,
     },
     {
-      path: "/pages/Service/qdwrite",
+      path: "/Service/write",
       name: "ServiceWrite",
       component: Servicewrite,
     },
     {
-      path: "/pages/Service/notice",
+      path: "/Service/notice",
       name: "ServiceNotice",
       component: Servicenotice,
     },
     {
-      path: "/pages/Service/qd",
+      path: "/Service/question",
       name: "ServiceQuestion",
       component: Servicequestion,
     },
     {
-      path: "/pages/Service/faq",
+      path: "/Service/faq",
       name: "ServiceFaq",
       component: Servicefaq,
     },
     {
-      path: "/pages/findtags/populartags",
+      path: "/findtags/populartags",
       name: "PopularTag",
       component: Populartag,
     },
     {
-      path: "/pages/findtags/recommendtags",
+      path: "/findtags/recommendtags",
       name: "RecommendTag",
       component: Recommendtag,
     },
     {
-      path: "/pages/selecttags",
+      path: "/selectliketags",
       name: "SelectGoodTag",
       component: Selectgoodtag,
     },
     {
-      path: "/pages/selecttags",
+      path: "/selectdisliketags",
       name: "SelectDislikeTag",
       component: Selectdisliketag,
     },
     {
-      path: "/pages/managerpage/managerpage",
+      path: "/managerpage",
       name: "ManagerPage",
       component: Managerpage,
     },
     {
-      path: "/pages/managerpage/tag",
+      path: "/managerpage/tag",
       name: "TagManagement",
       component: Tagmanagement,
     },
     {
-      path: "/pages/managerpage/report",
+      path: "/managerpage/report",
       name: "ReportManagement",
       component: Reportmanagement,
     },
     {
-      path: "/pages/managerpage/dashboard",
+      path: "/managerpage/dashboard",
       name: "DashBoard",
       component: Dashboard,
     },
     {
-      path: "/pages/managerpage/user",
+      path: "/managerpage/user",
       name: "UserManagement",
       component: Usermanagement,
     },
     {
-      path: "/pages/managerpage/statistics",
+      path: "/managerpage/statistics",
       name: "StatisticsManagement",
       component: Statisticsmanagement,
     },
@@ -187,22 +187,22 @@ const router = createRouter({
       component: Editpost,
     },
     {
-      path: "/pages/mydiary",
+      path: "/mydiary",
       name: "MyDiary",
       component: Mydiary,
     },
-    {
-      path: "/pages/write",
+{
+      path: "/postwrite",
       name: "CkEditor",
       component: CkEditor,
     },
     {
-      path: "/pages/edittags",
+      path: "/edittags",
       name: "EditTag",
       component: EditTag,
     },
     {
-      path: "/pages/BookMark",
+      path: "/userbookmark",
       name: "UserBookmark",
       component: UserBookmark,
     },
@@ -210,5 +210,6 @@ const router = createRouter({
 });
 
 // 1 /home 2 /todos 3 /todos/create 4 /todos/:id
+
 
 export default router;

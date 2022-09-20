@@ -123,28 +123,17 @@ export default {
     const q1Error = ref(false);
     const q2Error = ref(false);
     const q3Error = ref(false);
-    // const questionInput = ref(false);
-    // const answerError = ref(false);
+
     // ref로 focus()할 것
     let info = reactive({
       id: "",
       pass: "",
       repass: "",
       email: "",
-      // selectedItem: '',
-      // answer: '',
       q1: "",
       q2: "",
       q3: "",
-      // certify: "",
-      // items: ['인상 깊게 읽은 책 이름은??', '나의 보물 1호는?', '기억에 남는 추억의 장소는?'],
     });
-
-    // function change() {
-    //   if (info.selectedItem !== "") {
-    //     questionInput.value = true;
-    //   }
-    // }
 
     const onSubmitForm = async () => {
       if (info.id === "") {
@@ -178,6 +167,8 @@ export default {
       router.push({
         name: "Main",
       });
+
+    
       try {
         await store.dispatch("users/signUp", {
           // Entity와 맞출 것
@@ -219,6 +210,7 @@ export default {
   // 회원가입 하지 않은 사람만 접근
   middleware: "anonymous",
 };
+
 </script>
 
 <style lang="sass" scoped>

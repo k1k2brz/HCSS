@@ -1,4 +1,4 @@
-// import axios from "@/axios";
+import axios from "@/axios";
 
 export default {
   namespaced: true,
@@ -26,11 +26,28 @@ export default {
   },
   actions: {
     signUp({ commit }, payload) {
-      // axios.post("http://localhost:3086/user", {
-      //   id: payload.id,
-      //   pw: payload.pw,
-      //   email: payload.email,
-      // })
+      const url = './decommi/member/signup'
+      const headers = {
+        "Content-Type": "application/json",
+      }
+      const body = {
+        id: payload.id,
+        pw: payload.pw,
+        email: payload.email,
+        q1: payload.q1,
+        q2: payload.q2,
+        q3: payload.q3,
+      }
+      console.log(body)
+      axios.post(url, body, { headers })
+        .then((res) => {
+          console.log(res.data)
+          if (res.data != '') {
+            alert('회원가입이 완료되었습니다.')
+          } else {
+            alert('회원가입에 실패하였습니다.')
+          }
+        })
       commit("setMe", payload);
     },
     favTags({ commit }, payload) {
@@ -40,6 +57,24 @@ export default {
       commit("setMe", payload);
     },
     logIn({ commit }, payload) {
+      const url = '/decommi/member/login'
+      const headers = {
+        "Content-Type": "application/json",
+      }
+      const body = {
+        id: payload.id,
+        pw: payload.pw,
+      }
+      console.log(body)
+      axios.post(url, body, { headers })
+        .then((res) => {
+          console.log(res.data)
+          if (res.data != '') {
+            alert('로그인 성공.')
+          } else {
+            alert('로그인에 실패하였습니다.')
+          }
+        })
       commit("setMe", payload);
     },
     logOut({ commit }) {

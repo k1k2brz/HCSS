@@ -100,7 +100,7 @@ export default {
     // const loginEmail = reactive({});
     // const loginPass = reactive({});
 
-    const onSubmitForm = () => {
+    const onSubmitForm = async () => {
       //trim으로 잘라서 하나도 없으면
       if (info.id.trim().length == 0) {
         emailError.value = true;
@@ -111,16 +111,20 @@ export default {
         return;
       }
       // localStorage.setItem("token", "logged");
-      store.dispatch("users/logIn", {
-        id: info.id,
-        pass: info.pass,
-      });
-      emailError.value = false;
-      passError.value = false;
-      store.state.me = true;
-      router.push({
-        name: "Main",
-      });
+      try {
+        await store.dispatch("users/logIn", {
+          id: info.id,
+          pw: info.pass,
+        });
+        emailError.value = false;
+        passError.value = false;
+        store.state.me = true;
+        router.push({
+          name: "Main",
+        });
+      } catch (err) {
+        console.log(err)
+      }
     };
 
     return { emailError, passError, info, onSubmitForm, router, route, store };
